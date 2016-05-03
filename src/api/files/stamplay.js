@@ -9,7 +9,7 @@ function Stamplay (state = {}, action) {
         ...state,
         company_name: "Stamplay",
       }
-    case COMPANY_NAME :
+    case COMPANY_DESC :
       return {
         ...state,
         company_desc: "BaaS enabling developers to use API's as building blocks. Parse meets Heroku meets IFTTT.",
