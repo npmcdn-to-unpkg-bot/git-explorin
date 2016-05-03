@@ -6,7 +6,7 @@ html {
 
 body {
   margin: 0 auto;
-  min-width: 740px;
+  min-width: 1140px;
   font-family: 'Lato', sans-serif;
   font-weight: 400;
 }
@@ -40,4 +40,8 @@ body {
 
 ::-webkit-scrollbar, ::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb,::-webkit-scrollbar-thumb:window-inactive {
   display: none;
+}
+
+.nohighlight {
+    color:#ddd;
 }

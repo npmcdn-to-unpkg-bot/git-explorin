@@ -6,7 +6,6 @@ export const FETCH_FAILURE = 'FETCH_FAILURE'
 export const ADD_ACTIVE_FILE = 'ADD_ACTIVE_FILE'
 export const SET_FILE_INACTIVE = 'SET_FILE_INACTIVE'
 export const SET_CURRENT_FILE = 'SET_CURRENT_FILE'
-export const SET_CODE = 'SET_CODE'
 
 function fetching () {
   return {
@@ -34,25 +33,20 @@ function addActive (file) {
   }
 }
 
-function setCurrent (file) {
+function setCurrent (file, code) {
   return {
     type: SET_CURRENT_FILE,
     file,
-  }
-}
-
-function setCode (code) {
-  return {
-    type: SET_CODE,
     code,
   }
 }
 
-function setInactive (active, current) {
+function setInactive (active, current, code) {
   return {
     type: SET_FILE_INACTIVE,
     active,
     current,
+    code,
   }
 }
 
@@ -76,10 +70,9 @@ export function setActiveFile (file) {
     const currentState = getState().Files
     if (currentState.active.indexOf(file) < 0) dispatch(addActive(file))
     if (currentState.current !== file) {
-      dispatch(setCurrent(file))
       document.title = `${file} - isaiah grey`
       return getFile(file).then((res) => {
-        dispatch(setCode(res.data))
+        dispatch(setCurrent(file, res.data))
       })
     }
   }
@@ -88,14 +81,19 @@ export function setActiveFile (file) {
 export function setFileInactive (file) {
   return function (dispatch, getState) {
     const activeFiles = getState().Files.active
+    let code = ''
     let current = getState().Files.current
     let idx = activeFiles.indexOf(file)
     let files = [...activeFiles.slice(0, idx), ...activeFiles.slice(idx + 1, activeFiles.length)]
-    if (current === file) {
-      current = files[0] !== undefined ? files[0] : ''
-      dispatch(setCode(''))
+    current = files[0] !== undefined ? files[0] : ''
+    if (current !== '') {
+      return getFile(current).then((res) => {
+        document.title = `${current} - isaiah grey`
+        dispatch(setInactive(files, current, res.data))
+      })
+    } else {
       document.title = 'isaiah grey'
+      dispatch(setInactive(files, current, code))
     }
-    dispatch(setInactive(files, current))
   }
 }

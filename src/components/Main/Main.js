@@ -4,25 +4,28 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { container } from './styles.scss'
 import * as actionCreators from '../../actions/files'
-let syntax = 'accesslog file'
+
+var syntax = ''
+var ext = ''
 
 class Main extends Component {
-
   componentWillMount = () => {
     if (this.props.code === '') {
       this.props.setActiveFile('untitled')
+      syntax = 'accesslog'
     }
   }
 
-  componentWillUpdate = () => {
-    let ext = this.props.current.split('.')[1] || 'accesslog'
-    if (ext === 'txt') ext = 'accesslog'
-    syntax = ext + ' file'
+  componentWillReceiveProps = (nextProps) => {
+    ext = nextProps.current.split('.')[1] || 'accesslog'
+    if (ext === 'js' || ext === 'jsx') ext = 'jsx scala'
+    if (ext === 'txt') ext = 'html'
+    syntax = ext
   }
 
   render () {
     return (
-      <div className={container} >
+      <div className={container} id={'code'}>
         <Highlight className={syntax}>
           {this.props.code}
         </Highlight>

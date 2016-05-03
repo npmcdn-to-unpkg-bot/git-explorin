@@ -37,11 +37,13 @@ export default function Files (state = initialState, action) {
         ...state,
         active: action.active,
         current: action.current,
+        code: action.code,
       }
     case fileActions.SET_CURRENT_FILE :
       return {
         ...state,
         current: action.file,
+        code: action.code,
       }
     case fileActions.SET_CODE :
       return {

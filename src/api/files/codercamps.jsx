@@ -1,39 +1,31 @@
-import React, { Component } from 'react'
-import Highlight from 'react-highlight'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { container } from './styles.scss'
-import * as actionCreators from '../../actions/files'
-let file = ' file'
-let ext = 'accesslog'
-let syntax = ext + file
+import { experience } from "isaiahgrey"
+import { bootcamp } from "companies"
 
-class Main extends Component {
-
-  componentWillMount = () => {
-    if(this.props.code === '') {
-      this.props.setActiveFile('untitled')
-    }
+class Codercamps extends bootcamp {
+  constructor (job) {
+    super (job)
   }
 
-  componentWillUpdate = () => {
-    ext = this.props.current.split('.')[1] || 'accesslog'
-    syntax = ext + file
+  describeCompany = (e) => {
+    return "Codercamps runs hands-on coding “boot camps” focused on teaching motivated students the programming skills needed to be successful in a developer role."
   }
 
   render () {
     return (
-      <div className={container} >
-        <Highlight className={syntax}>
-          {this.props.code}
-        </Highlight>
+      <div>
+        <h3>{"Job title: Instructor"}</h3>
+        <div>
+          <p>
+            {"Description: Taught full stack JavaScript, software best practices, version control, agile development."}
+          </p>
+        </div>
+        <div>
+          <p>{"Time: Feburary 2015 - October 2015"}</p>
+        </div>
       </div>
     )
   }
 
 }
 
-export default connect(
-  (state) => ({ code: state.Files.code, current: state.Files.current }),
-  (dispatch) => (bindActionCreators(actionCreators, dispatch))
-  )(Main)
+export default Codercamps
