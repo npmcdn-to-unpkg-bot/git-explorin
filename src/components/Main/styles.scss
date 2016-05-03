@@ -1,0 +1,27 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:300,600,500,400);
+
+.container {
+  width: 100%;
+  height: calc(100vh - 90px);
+  overflow: hidden;
+  background-color: #1A2B34;
+  composes: flex-inline from '../../styles/main.scss';
+  & pre {
+    margin:0;
+    width: 100%;
+    code {
+      width:100%;
+      height: calc(100vh - 90px);
+      background-color: #1A2B34;
+      font-family: 'Source Code Pro';
+      font-style: normal;
+      font-weight: 300;
+    }
+  }
+}
+
+.file {
+
+   
+  
+}

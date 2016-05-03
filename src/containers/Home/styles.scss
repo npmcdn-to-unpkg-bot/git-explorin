@@ -1,0 +1,18 @@
+.container {
+  composes: flex from '../../styles/main.scss';
+  flex-wrap:wrap;
+}
+
+.column100 {
+  width: 100%;
+}
+
+.column75 {
+  width: 75%;
+}
+
+.column25 {
+  width: 25%;
+  background-color: #16242B;
+  overflow: scroll;
+}

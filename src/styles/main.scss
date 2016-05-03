@@ -1,0 +1,45 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,300);
+
+html {
+  background-color: #1A2B34;
+}
+
+body {
+  margin: 0 auto;
+  min-width: 740px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+}
+
+* {
+  box-sizing:border-box;
+  &:before {
+    font-family: 'Ionicons'
+  }
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-inline {
+  display: inline-flex;
+}
+
+.no-select {
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */  
+}
+
+
+/* Let's get this party started */
+::-webkit-scrollbar, ::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb,::-webkit-scrollbar-thumb:window-inactive {
+  display: none;
+}

@@ -1,0 +1,37 @@
+.folder {
+  composes: no-select from '../../styles/main.scss';  
+  padding:2px 2px 2px 1em;
+  margin:2px 0;
+  overflow:hidden;
+  max-height:25px;
+  transition:all 0.2s ease-out;
+  &Active {
+    composes: folder;
+    max-height:1000px;
+    transition:all 0.5s ease-in;
+  }
+}
+
+.folderLink {
+  composes: no-select from '../../styles/main.scss';  
+  color:#ccc;
+  cursor:pointer;
+  &:before {
+    font-size:0.75em;
+    padding:0 6px;
+    content: "\f3d1 ";
+  }
+  &:active {
+    color:#ddd;
+  }
+  &:hover {
+    color:#eee;
+  }
+  &Active {
+    composes: folderLink;
+    &:before {
+      content: "\f3d0 ";
+    }
+  }
+}
+

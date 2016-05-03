@@ -1,0 +1,15 @@
+.container {
+  composes: flex flex-center from '../../styles/main.scss';
+  width:100%;
+  background-color:#16262d;
+  height: 40px;
+  font-weight: 300;
+  & a {
+    color:#aaa;
+    text-decoration: none;
+    &:hover {
+      color:#bbb;
+      text-decoration: underline;
+    }
+  }
+}
