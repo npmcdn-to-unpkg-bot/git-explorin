@@ -7,6 +7,11 @@
   background-color: #1A2B34;
   composes: flex-inline from '../../styles/main.scss';
   & pre {
+    white-space: pre-wrap;       /* css-3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;
     margin:0;
     width: 100%;
     code {
@@ -16,12 +21,10 @@
       font-family: 'Source Code Pro';
       font-style: normal;
       font-weight: 300;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
   }
-}
-
-.file {
-
-   
-  
 }

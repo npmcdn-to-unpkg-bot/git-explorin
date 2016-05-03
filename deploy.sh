@@ -6,6 +6,7 @@ npm run production
 echo
 
 git checkout development
+cp CNAME dist
 git add .
 git commit -m "$commit_message"
 git push origin development

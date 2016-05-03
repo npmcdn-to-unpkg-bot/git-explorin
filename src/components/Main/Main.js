@@ -16,6 +16,7 @@ class Main extends Component {
 
   componentWillUpdate = () => {
     let ext = this.props.current.split('.')[1] || 'accesslog'
+    if (ext === 'txt') ext = 'accesslog'
     syntax = ext + ' file'
   }
 
