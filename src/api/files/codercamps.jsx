@@ -7,7 +7,7 @@ class Codercamps extends bootcamp {
   }
 
   describeCompany = (e) => {
-    return "Codercamps runs hands-on coding “boot camps” focused on teaching motivated students the programming skills needed to be successful in a developer role."
+    return "Codercamps runs hands-on coding 'boot camps' focused on teaching motivated students the programming skills needed to be successful in a developer role."
   }
 
   render () {

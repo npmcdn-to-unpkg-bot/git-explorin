@@ -1,22 +1,16 @@
 #!/bin/sh
-IFS= read -r -p "Enter a commit message: " commit_message
 
-npm run prod
+echo "Send me an email" | mail -s "Let's chat." isaiahgrey@gmail.com
 
-echo
+echo "Which account would you like to see, my github, linkedin, or twitter?"
+read accountname
 
-git add .
-git commit -m "$commit_message"
-git push origin development
+if [ "$accountname" == twitter ]; then
+  open https://twitter.com/isaiahgrey93
+elif [ "$accountname" == github ]; then
+  open https://github.com/isaiahgrey93
+elif [ "$accountname" == linkedin ]; then
+  open https://linkedin.com/in/isaiahgrey
+fi
 
-echo
-
-git checkout master
-git merge development
-git add .
-git commit -m "$commit_message"
-git subtree push --prefix dist origin master
-
-echo
-
-git checkout development
+echo "Thanks for looking!"
