@@ -61,7 +61,9 @@ export function fetchFiles () {
     dispatch(fetching())
     return fetchAllFiles()
       .then((res) => {
-        dispatch(fetchSuccess(res))
+        setTimeout(() => {
+          dispatch(fetchSuccess(res))
+        }, 100)
       })
       .catch(() => {
         dispatch(fetchFailure())

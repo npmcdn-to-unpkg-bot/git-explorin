@@ -5,7 +5,7 @@ const initialState = {
   active: [],
   current: '',
   code: '',
-  loading: false,
+  loading: true,
 }
 
 export default function Files (state = initialState, action) {
