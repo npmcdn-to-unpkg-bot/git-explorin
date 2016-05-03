@@ -77,6 +77,7 @@ export function setActiveFile (file) {
     if (currentState.active.indexOf(file) < 0) dispatch(addActive(file))
     if (currentState.current !== file) {
       dispatch(setCurrent(file))
+      document.title = `${file} - isaiah grey`
       return getFile(file).then((res) => {
         dispatch(setCode(res.data))
       })
@@ -93,6 +94,7 @@ export function setFileInactive (file) {
     if (current === file) {
       current = files[0] !== undefined ? files[0] : ''
       dispatch(setCode(''))
+      document.title = 'isaiah grey'
     }
     dispatch(setInactive(files, current))
   }
