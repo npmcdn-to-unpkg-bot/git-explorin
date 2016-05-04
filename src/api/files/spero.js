@@ -1,4 +1,4 @@
-import { experience } from 'isaiahgrey'
+import { experience } from "isaiahgrey"
 
 const SET_JOB_TITLE = "SET_JOB_TITLE"
 const SET_COMPANY = "SET_JOB_TITLE"
