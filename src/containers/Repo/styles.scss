@@ -1,7 +1,9 @@
 .container {
   composes: flex from '../../styles/main.scss';
   flex-wrap:wrap;
-  max-height: 100vh;
+  max-height: 100vh; 
+  align-items: flex-start;
+
 }
 
 .column100 {

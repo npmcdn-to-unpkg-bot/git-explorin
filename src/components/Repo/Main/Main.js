@@ -18,7 +18,7 @@ class Main extends Component {
   }
 
   renderImage = (blob) => {
-    let image = document.getElementById('image-hold');
+    let image = document.getElementById('image-holder');
     image.src = 'data:image/bmp;base64,'+ btoa(blob);
   }
 
@@ -31,13 +31,13 @@ class Main extends Component {
         )
       : (
         <div className={imgContainer}>
-          <img id='image-hold' src='' className={img}/>
+          <img id='image-holder' src='' className={img}/>
         </div>
       )
   }
 
   componentDidUpdate = () => {
-    if(isImage) this.renderImage(this.props.current.source)
+    if(isImage && this.props.current.source !== '') this.renderImage(this.props.current.source)
   }
 
   render () {
