@@ -1,37 +1,41 @@
-import React, { PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { File } from 'components'
 import { container, heading, openfiles } from './styles.scss'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actionCreators from 'actions/files'
 
-function OpenFiles (props) {
+class OpenFiles extends Component {
 
-  function setFileInactive (file, e) {
+  setFileInactive = (e) => {
     e.stopPropagation()
-    props.setInactive(file)
+    this.props.setInactive(this.props.active[e.target.getAttribute('data-file')])
   }
 
-  return (
-    <div className={container}>
-      <h1 className={heading}>{'open files'}</h1>
-      <ul className={openfiles}>
-        {Object.keys(props.active).map((file) => {
-          return (
-            <File key={file} file={props.active[file]}>
-              <i onClick={setFileInactive.bind(null, props.active[file])}></i>
-            </File>
-          )
-        })}
-      </ul>
-    </div>
-  )
+  render () {
+    return (
+      <div className={container}>
+        <h1 className={heading}>{'open files'}</h1>
+        <ul className={openfiles}>
+          {
+            Object.keys(this.props.active).map((file) => {
+              return (
+                <File key={file} file={this.props.active[file]} >
+                  <i onClick={this.setFileInactive} data-file={file}></i>
+                </File>
+              )
+            })
+          }
+        </ul>
+      </div>
+    )
+  }
 }
 
-// OpenFiles.propTypes = {
-//   active: PropTypes.array.isRequired,
-//   setFileInactive: PropTypes.func.isRequired,
-// }
+OpenFiles.propTypes = {
+  active: PropTypes.object.isRequired,
+  setInactive: PropTypes.func.isRequired,
+}
 
 export default connect(
   (state) => ({ active: state.Files.active }),

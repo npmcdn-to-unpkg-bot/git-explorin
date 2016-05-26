@@ -1,49 +1,54 @@
-import React, { PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { container, tabs, tab, active } from './styles.scss'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actionCreators from 'actions/files'
 
-function Tabs (props) {
-  function handleSetActive (file, e) {
+class Tabs extends Component {
+
+  handleSetActive = (e) => {
     e.stopPropagation()
-    props.setActive(file)
+    this.props.setActive(this.props.active[e.target.getAttribute('data-file')])
   }
 
-  function handleSetInactive (file, e) {
+  handleSetInactive = (e) => {
     e.stopPropagation()
-    props.setInactive(file)
+    this.props.setInactive(this.props.active[e.target.parentNode.getAttribute('data-file')])
   }
 
-  return (
-    <div className={container}>
-      <ul className={tabs}>
-        {Object.keys(props.active).map((file) => {
-          let filename = file.split('/')
-          return (
-            <li
-              key={file}
-              onClick={handleSetActive.bind(null, props.active[file])}
-              className={file === props.current.path ? active : tab}>
-              {filename[filename.length - 1]}
-              <i
-                className='ion-ios-close-empty'
-                onClick={handleSetInactive.bind(null, props.active[file])}></i>
-            </li>
-          )
-        })}
-      </ul>
-    </div>
-  )
+  render () {
+    return (
+      <div className={container}>
+        <ul className={tabs}>
+          {
+            Object.keys(this.props.active).map((file) => {
+              let filename = file.split('/')
+              return (
+                <li
+                  key={file}
+                  onClick={this.handleSetActive}
+                  data-file={file}
+                  className={file === this.props.current.path ? active : tab}>
+                  {filename[filename.length - 1]}
+                  <i
+                    className='ion-ios-close-empty'
+                    onClick={this.handleSetInactive}></i>
+                </li>
+              )
+            })
+          }
+        </ul>
+      </div>
+    )
+  }
 }
 
-
-
-// Tabs.propTypes = {
-//   setFileInactive: PropTypes.func.isRequired,
-//   active: PropTypes.array.isRequired,
-//   current: PropTypes.object.isRequired,
-// }
+Tabs.propTypes = {
+  setInactive: PropTypes.func.isRequired,
+  setActive: PropTypes.func.isRequired,
+  active: PropTypes.object.isRequired,
+  current: PropTypes.object.isRequired,
+}
 
 export default connect(
   (state) => ({

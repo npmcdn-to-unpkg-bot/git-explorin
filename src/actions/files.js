@@ -41,9 +41,6 @@ function setFileAsCurrent (file = {}) {
   }
 }
 
-
-
-
 export function fetchRepo (user, repo, branch = 'master') {
   return function (dispatch) {
     dispatch(repositoryLoading())
@@ -66,26 +63,28 @@ export function fetchFile (file) {
 
 export function setActive (file) {
   return function (dispatch, getState) {
+    let current = getState().Files.current
+    if (current.path === file.path) return
     dispatch(setFileAsActive({
       ...getState().Files.active,
       [file.path]: file,
     }))
-    dispatch(fetchFile (file))
+    dispatch(fetchFile(file))
   }
 }
 
 export function setInactive (file) {
   return function (dispatch, getState) {
-    let { active, current } = getState().Files
+    let { active } = getState().Files
     delete active[file.path]
     dispatch(setFileAsInactive({
       ...getState().Files.active,
       ...active,
     }))
-    if(_.keys(active).length > 0) {
+    if (_.keys(active).length >= 1) {
       dispatch(setFileAsCurrent(active[_.keys(active)[0]]))
     } else {
-      dispatch(setFileAsCurrent())
+      dispatch(setFileAsCurrent({ source: '', path: '' }))
     }
   }
 }

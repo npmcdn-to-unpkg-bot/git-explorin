@@ -11,7 +11,7 @@ export default function routes () {
     <Router history={hashHistory}>
       <Router path='/' component={MainContainer}>
         <IndexRoute component={HomeContainer} />
-        <Route path="/:username/:repo(/:branch)" component={RepoContainer} />
+        <Route path='/:username/:repo(/:branch)' component={RepoContainer} />
       </Router>
     </Router>
   )

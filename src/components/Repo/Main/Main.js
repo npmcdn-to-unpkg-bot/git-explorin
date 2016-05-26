@@ -5,19 +5,15 @@ import { bindActionCreators } from 'redux'
 import { container } from './styles.scss'
 import * as actionCreators from 'actions/files'
 
-var syntax = ''
-var filepath = ''
+let syntax = ''
+let filepath = ''
 
 class Main extends Component {
-  componentWillMount = () => {
-
-  }
 
   componentWillReceiveProps = (nextProps) => {
-    console.log()
     filepath = nextProps.current.path.split('.')
-    if(filepath.length < 2) return syntax = 'accesslog'
-    syntax = filepath[filepath.length - 1]
+    if (filepath.length < 2) syntax = 'accesslog'
+    else syntax = filepath[filepath.length - 1]
   }
 
   render () {
@@ -29,14 +25,11 @@ class Main extends Component {
       </div>
     )
   }
-
 }
 
-// Main.propTypes = {
-//   code: PropTypes.string.isRequired,
-//   setActiveFile: PropTypes.func.isRequired,
-//   current: PropTypes.object.isRequired,
-// }
+Main.propTypes = {
+  current: PropTypes.object.isRequired,
+}
 
 export default connect(
   (state) => ({ current: state.Files.current }),

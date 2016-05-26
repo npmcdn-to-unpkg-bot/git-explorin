@@ -8,13 +8,14 @@ function Directory ({ files, repo }) {
       <h1 className={heading}>{'folders'}</h1>
       <Folder files={files} isRoot={true}>
         {repo}
-      </Folder> 
+      </Folder>
     </div>
   )
 }
 
-// Directory.propTypes = {
-//   files: PropTypes.object.isRequired,
-// }
+Directory.propTypes = {
+  files: PropTypes.object.isRequired,
+  repo: PropTypes.string.isRequired,
+}
 
 export default Directory

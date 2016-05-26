@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux'
 import * as actionCreators from 'actions/files'
 
 function File (props) {
-
   function activate (e) {
     props.setActive(props.file)
   }
@@ -18,12 +17,12 @@ function File (props) {
     : <li className={fileStatus} onClick={activate}>{props.children}{filename[filename.length - 1]}</li>
 }
 
-// File.propTypes = {
-//   setActiveFile: PropTypes.func.isRequired,
-//   filename: PropTypes.string.isRequired,
-//   current: PropTypes.object.isRequired,
-//   children: PropTypes.element,
-// }
+File.propTypes = {
+  setActive: PropTypes.func.isRequired,
+  file: PropTypes.object.isRequired,
+  current: PropTypes.object.isRequired,
+  children: PropTypes.element,
+}
 
 export default connect(
   (state) => ({ current: state.Files.current }),

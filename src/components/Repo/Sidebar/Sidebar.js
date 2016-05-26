@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react'
-import { container } from './styles.scss'
 import { Directory, OpenFiles } from 'components'
-import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as fileActionCreators from 'actions/files'
+import { connect } from 'react-redux'
+import { container } from './styles.scss'
 
 class Sidebar extends Component {
 
@@ -24,11 +24,8 @@ class Sidebar extends Component {
 
 Sidebar.propTypes = {
   directory: PropTypes.object.isRequired,
+  params: PropTypes.object.isRequired,
   fetchRepo: PropTypes.func.isRequired,
-}
-
-Sidebar.contextTypes = {
-  router: PropTypes.object.isRequired,
 }
 
 export default connect(

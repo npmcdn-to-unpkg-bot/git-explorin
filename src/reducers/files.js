@@ -1,10 +1,10 @@
-import * as fileActions from '../actions/files'
-
 const initialState = {
   directory: {},
   active: {},
-  current: {},
-  code: '',
+  current: {
+    source: '',
+    path: '',
+  },
   loading: true,
 }
 
@@ -39,7 +39,7 @@ export default function Files (state = initialState, action) {
     case 'SET_FILE_AS_CURRENT' :
       return {
         ...state,
-        current: action.file
+        current: action.file,
       }
     case 'SET_CODE' :
       return {
