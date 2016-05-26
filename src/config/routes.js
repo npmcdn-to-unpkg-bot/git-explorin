@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, Route, browserHistory, IndexRoute } from 'react-router'
+import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 import {
   MainContainer,
   HomeContainer,
@@ -8,7 +8,7 @@ import {
 
 export default function routes () {
   return (
-    <Router history={browserHistory}>
+    <Router history={hashHistory}>
       <Router path='/' component={MainContainer}>
         <IndexRoute component={HomeContainer} />
         <Route path='/:username/:repo(/:branch)' component={RepoContainer} />
