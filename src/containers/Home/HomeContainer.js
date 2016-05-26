@@ -25,20 +25,17 @@ class HomeContainer extends Component {
           <input
             type='text'
             name='username'
-            value='isaiahgrey93'
             onChange={() => {}}
             placeholder='username' />
           <input
             type='text'
             name='repo'
-            value='isaiahgrey93.github.io'
             onChange={() => {}}
             placeholder='repo' />
           <input
             type='text'
             name='branch'
-            value='development'
-            onChange={() => {}}
+            onChange={(e) => {}}
             placeholder='branch' />
           <input
             type='submit' />
