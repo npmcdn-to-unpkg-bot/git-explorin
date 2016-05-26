@@ -1,99 +1,91 @@
-import { fetchAllFiles, getFile } from '../api'
+import { fetchRepoDir, fetchFileSource } from '../api'
+import _ from 'lodash'
 
-export const FETCHING = 'FETCHING'
-export const FETCH_SUCCESS = 'FETCH_SUCCESS'
-export const FETCH_FAILURE = 'FETCH_FAILURE'
-export const ADD_ACTIVE_FILE = 'ADD_ACTIVE_FILE'
-export const SET_FILE_INACTIVE = 'SET_FILE_INACTIVE'
-export const SET_CURRENT_FILE = 'SET_CURRENT_FILE'
-
-function fetching () {
+function repositoryLoading () {
   return {
-    type: FETCHING,
+    type: 'REPOSITORY_LOADING',
   }
 }
 
-function fetchSuccess (files) {
+function repositoryLoadSuccess (files) {
   return {
-    type: FETCH_SUCCESS,
-    files: files,
+    type: 'REPOSITORY_LOAD_COMPLETE',
+    files,
   }
 }
 
-function fetchFailure () {
+function repositoryLoadFailure () {
   return {
-    type: FETCH_FAILURE,
+    type: 'REPOSITORY_LOAD_FAILURE',
   }
 }
 
-function addActive (file) {
+function setFileAsActive (active) {
   return {
-    type: ADD_ACTIVE_FILE,
-    file,
-  }
-}
-
-function setCurrent (file, code) {
-  return {
-    type: SET_CURRENT_FILE,
-    file,
-    code,
-  }
-}
-
-function setInactive (active, current, code) {
-  return {
-    type: SET_FILE_INACTIVE,
+    type: 'SET_FILE_AS_ACTIVE',
     active,
-    current,
-    code,
   }
 }
 
-export function fetchFiles () {
+function setFileAsInactive (active) {
+  return {
+    type: 'SET_FILE_AS_INACTIVE',
+    active,
+  }
+}
+
+function setFileAsCurrent (file = {}) {
+  return {
+    type: 'SET_FILE_AS_CURRENT',
+    file,
+  }
+}
+
+
+
+
+export function fetchRepo (user, repo, branch = 'master') {
   return function (dispatch) {
-    dispatch(fetching())
-    return fetchAllFiles()
-      .then((res) => {
-        setTimeout(() => {
-          dispatch(fetchSuccess(res))
-        }, 100)
-      })
-      .catch(() => {
-        dispatch(fetchFailure())
-      })
+    dispatch(repositoryLoading())
+    return fetchRepoDir(user, repo, branch)
+      .then((res) => dispatch(repositoryLoadSuccess(res)))
+      .catch(() => dispatch(repositoryLoadFailure()))
   }
 }
 
-export function setActiveFile (file) {
-  return function (dispatch, getState) {
-    const currentState = getState().Files
-    if (currentState.active.indexOf(file) < 0) dispatch(addActive(file))
-    if (currentState.current !== file) {
-      document.title = `${file} - isaiah grey`
-      return getFile(file).then((res) => {
-        dispatch(setCurrent(file, res.data))
+export function fetchFile (file) {
+  return function (dispatch) {
+    return fetchFileSource(file.url)
+      .then(({ data }) => {
+        file.source = data
+        return dispatch(setFileAsCurrent(file))
       })
-    }
+      .catch((err) => console.error(err))
   }
 }
 
-export function setFileInactive (file) {
+export function setActive (file) {
   return function (dispatch, getState) {
-    const activeFiles = getState().Files.active
-    let code = ''
-    let current = getState().Files.current
-    let idx = activeFiles.indexOf(file)
-    let files = [...activeFiles.slice(0, idx), ...activeFiles.slice(idx + 1, activeFiles.length)]
-    current = files[0] !== undefined ? files[0] : ''
-    if (current !== '') {
-      return getFile(current).then((res) => {
-        document.title = `${current} - isaiah grey`
-        dispatch(setInactive(files, current, res.data))
-      })
+    dispatch(setFileAsActive({
+      ...getState().Files.active,
+      [file.path]: file,
+    }))
+    dispatch(fetchFile (file))
+  }
+}
+
+export function setInactive (file) {
+  return function (dispatch, getState) {
+    let { active, current } = getState().Files
+    delete active[file.path]
+    dispatch(setFileAsInactive({
+      ...getState().Files.active,
+      ...active,
+    }))
+    if(_.keys(active).length > 0) {
+      dispatch(setFileAsCurrent(active[_.keys(active)[0]]))
     } else {
-      document.title = 'isaiah grey'
-      dispatch(setInactive(files, current, code))
+      dispatch(setFileAsCurrent())
     }
   }
 }

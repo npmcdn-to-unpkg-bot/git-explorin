@@ -1,0 +1,14 @@
+.container {
+  max-width: 100%;
+  max-height: calc(100vh - 40px);
+  min-height: calc(100vh - 40px);
+  background-color: #eee;
+  text-align: center;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: overlay;
+  overflow-wrap: normal;
+  align-items: baseline;
+}

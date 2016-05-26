@@ -1,0 +1,42 @@
+.folder {
+  composes: no-select from 'styles/main.scss';  
+  padding:4px 0 4px 1.4em;
+  margin:0;
+  overflow:hidden;
+  max-height:28px;
+  transition:all 0.05s linear;
+  width: 25vw;
+  &Active {
+    composes: folder;
+    max-height: 100%;
+    width:auto;
+  }
+}
+
+.folderLink {
+  composes: no-select from 'styles/main.scss';  
+  color: #333;
+  cursor:pointer;
+  &:before {
+    display: inline-block;
+    vertical-align: middle;
+    font-size:1em;
+    padding:0 6px;
+    content: "\f2e0";
+  }
+  &:hover {
+    color:#555;
+  }
+  &:active {
+    color:#333;
+  }
+  &Active {
+    composes: folderLink;
+
+    &:before {
+      content: "\f38a" !important;
+      // transform: rotate(90deg)
+    }
+  }
+}
+

@@ -1,19 +1,20 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,300);
+@import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
 
 html {
-  background-color: #1A2B34;
+  background-color: #fff;
 }
 
 body {
   margin: 0 auto;
-  min-width: 1140px;
+  min-width: 600px;
   font-family: 'Lato', sans-serif;
   font-weight: 400;
 }
 
 * {
   box-sizing:border-box;
-  &:before {
+  &:before, &:after {
     font-family: 'Ionicons'
   }
 }
@@ -38,8 +39,22 @@ body {
   user-select: none;
 }
 
-::-webkit-scrollbar, ::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb,::-webkit-scrollbar-thumb:window-inactive {
-  display: none;
+
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+  background:rgb(200, 200, 200);
+}
+ 
+::-webkit-scrollbar-thumb {
+  background:rgb(220, 220, 220);
+}
+
+::-webkit-scrollbar-corner {
+  background:rgb(200, 200, 200);
 }
 
 .nohighlight {

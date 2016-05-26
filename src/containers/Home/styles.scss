@@ -1,18 +1,9 @@
-.container {
-  composes: flex from '../../styles/main.scss';
-  flex-wrap:wrap;
+.loading {
+  opacity: 0;
+  transition:all 0.5s ease-in-out;
 }
 
-.column100 {
-  width: 100%;
-}
-
-.column75 {
-  width: 75%;
-}
-
-.column25 {
-  width: 25%;
-  background-color: #16242B;
-  overflow: scroll;
+.loaded {
+  transition:all 0.5s ease-in-out;
+  opacity: 1;
 }

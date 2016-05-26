@@ -1,22 +1,54 @@
-import React from 'react'
-import { Sidebar, Tabs, Main, Footer } from 'components'
-import { container, column25, column75, column100 } from './styles.scss'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
 
-function HomeContainer () {
-  return (
-    <div className={container}>
-      <div className={column25}>
-        <Sidebar />
+class HomeContainer extends Component {
+
+  handleSubmit = (e) => {
+    e.preventDefault()
+    this.context.router.push({
+      pathname: `/${e.target.username.value}/${e.target.repo.value}/${e.target.branch.value}`
+    })
+  }
+
+  render () {
+    return (
+      <div>
+        <h1>Repo Explorer</h1>
+        <form onSubmit={this.handleSubmit} >
+          <input 
+            type='text' 
+            name='username' 
+            value='isaiahgrey93' 
+            onChange={()=>{}} 
+            placeholder='username'
+          />
+          <input 
+            type='text' 
+            name='repo'
+            value='isaiahgrey93.github.io' 
+            onChange={()=>{}} 
+            placeholder='repo'
+          />
+          <input 
+            type='text' 
+            name='branch'             
+            value='development' 
+            onChange={()=>{}} 
+            placeholder='branch'
+          />
+          <input 
+            type='submit'
+          />
+        </form>
       </div>
-      <div className={column75}>
-        <Tabs />
-        <Main />
-      </div>
-      <div className={column100}>
-        <Footer />
-      </div>
-    </div>
-  )
+    )
+  }
 }
 
-export default HomeContainer
+HomeContainer.contextTypes = {
+  router: PropTypes.object.isRequired
+}
+
+export default connect(
+  (state) => ({})
+  )(HomeContainer)

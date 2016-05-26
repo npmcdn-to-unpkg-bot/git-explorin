@@ -1,51 +1,47 @@
 import * as fileActions from '../actions/files'
 
 const initialState = {
-  files: {},
-  active: [],
-  current: '',
+  directory: {},
+  active: {},
+  current: {},
   code: '',
   loading: true,
 }
 
 export default function Files (state = initialState, action) {
   switch (action.type) {
-    case fileActions.FETCHING :
+    case 'REPOSITORY_LOADING' :
       return {
         ...state,
         loading: true,
       }
-    case fileActions.FETCH_SUCCESS :
+    case 'REPOSITORY_LOAD_COMPLETE' :
       return {
         ...state,
         loading: false,
-        files: action.files,
+        directory: action.files,
       }
-    case fileActions.FETCH_FAILURE :
+    case 'REPOSITORY_LOAD_FAILURE' :
       return {
         ...state,
         loading: false,
-        files: {},
       }
-    case fileActions.ADD_ACTIVE_FILE :
-      return {
-        ...state,
-        active: [...state.active, action.file],
-      }
-    case fileActions.SET_FILE_INACTIVE :
+    case 'SET_FILE_AS_ACTIVE' :
       return {
         ...state,
         active: action.active,
-        current: action.current,
-        code: action.code,
       }
-    case fileActions.SET_CURRENT_FILE :
+    case 'SET_FILE_AS_INACTIVE' :
       return {
         ...state,
-        current: action.file,
-        code: action.code,
+        active: action.active,
       }
-    case fileActions.SET_CODE :
+    case 'SET_FILE_AS_CURRENT' :
+      return {
+        ...state,
+        current: action.file
+      }
+    case 'SET_CODE' :
       return {
         ...state,
         code: action.code,

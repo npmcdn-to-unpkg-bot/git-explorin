@@ -1,25 +1,26 @@
 import axios from 'axios'
-import filesJSON from '../data/files'
+import _ from 'lodash'
+let credentials = 'client_id=fb454ec74924b5f8fbe5&client_secret=ec40732e8b66dff25332ba22b72d0b9ad445f80c'
+let directory = {}
 
-export function fetchAllFiles () {
+export function fetchRepoDir (user = _default.user, repo = _default.repo, branch = _default.branch) {
   return new Promise((resolve, reject) => {
-    resolve(filesJSON())
+    axios(`https://api.github.com/repos/${user}/${repo}/git/trees/${branch}?recursive=1&${credentials}`)
+      .then(({data}) => data.tree.map((item) => _.set(directory, item.path.split('/').concat(['__ref']), item)))
+      .then(() => resolve(directory))
+      .catch((err) => reject(err))
   })
 }
 
-export function getFile (file) {
-  if (file === undefined) file = 'untitled'
-  if (window.location.origin === 'http://localhost:8080') {
-    return axios.get(`../../api/files/${file}`)
-  }
+export function fetchFileSource (uri) {
   return axios({
-    url: `https://api.github.com/repos/isaiahgrey93/isaiahgrey93.github.io/contents/src/api/files/${file}`,
+    url: `${uri}?${credentials}`,
     method: 'get',
-    params: {
-      ref: 'development',
-    },
     transformResponse: function (data) {
       return atob(JSON.parse(data).content)
     },
   })
 }
+
+
+
