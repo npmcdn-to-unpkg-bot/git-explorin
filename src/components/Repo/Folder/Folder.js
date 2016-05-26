@@ -35,7 +35,7 @@ function Folder (props) {
 
 Folder.propTypes = {
   files: PropTypes.object.isRequired,
-  isRoot: PropTypes.bool.isRequired,
+  isRoot: PropTypes.bool,
   children: PropTypes.string,
 }
 

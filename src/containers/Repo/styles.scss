@@ -14,14 +14,12 @@
   composes: flex from '../../styles/main.scss';
   flex-wrap:wrap;
   width: 70%;
-  min-width: 530px;
 }
 
 .column30 {
   composes: flex from '../../styles/main.scss';
   flex-wrap:wrap;
   width: 30%;
-  min-width: 270px;
 }
 
 .loading {

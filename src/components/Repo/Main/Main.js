@@ -2,12 +2,13 @@ import React, { Component, PropTypes } from 'react'
 import Highlight from 'react-highlight'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { container } from './styles.scss'
+import { container, imgContainer, img } from './styles.scss'
 import * as actionCreators from 'actions/files'
 
 let syntax = ''
 let filepath = ''
-
+let isImage = false
+let imageExt = ['png', 'jpeg', 'svg']
 class Main extends Component {
 
   componentWillReceiveProps = (nextProps) => {
@@ -16,12 +17,34 @@ class Main extends Component {
     else syntax = filepath[filepath.length - 1]
   }
 
+  renderImage = (blob) => {
+    let image = document.getElementById('image-hold');
+    image.src = 'data:image/bmp;base64,'+ btoa(blob);
+  }
+
+  codeOrImage = () => {
+    return isImage === false
+      ? (
+          <Highlight className={syntax}>
+            {this.props.current.source}
+          </Highlight> 
+        )
+      : (
+        <div className={imgContainer}>
+          <img id='image-hold' src='' className={img}/>
+        </div>
+      )
+  }
+
+  componentDidUpdate = () => {
+    if(isImage) this.renderImage(this.props.current.source)
+  }
+
   render () {
+    isImage = imageExt.indexOf(syntax) >= 0 ? true : false
     return (
       <div className={container} id={'code'}>
-        <Highlight className={syntax}>
-          {this.props.current.source}
-        </Highlight>
+        {this.codeOrImage()}
       </div>
     )
   }
