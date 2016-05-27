@@ -36,6 +36,7 @@ class RepoContainer extends Component {
 RepoContainer.propTypes = {
   params: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
+  fetchRepo: PropTypes.func.isRequired,
 }
 
 export default connect(

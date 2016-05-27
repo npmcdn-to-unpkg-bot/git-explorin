@@ -1,15 +1,11 @@
-import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 
 function UserContainer (props) {
   return (
     <div>
-      User Profile
+      {'User Profile'}
     </div>
   )
 }
 
-export default connect(
-  (state) => ({ })
-  // (dispatch) => (bindActionCreators())
-  )(UserContainer)
+export default UserContainer

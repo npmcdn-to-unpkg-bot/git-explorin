@@ -15,11 +15,11 @@ class Main extends Component {
     filepath = nextProps.current.path.split('.')
     if (filepath.length < 2) syntax = 'accesslog'
     else syntax = filepath[filepath.length - 1]
+    isImage = imageExt.indexOf(syntax) >= 0
   }
 
-  renderImage = (blob) => {
-    let image = document.getElementById('image-holder');
-    image.src = 'data:image/bmp;base64,'+ btoa(blob);
+  componentDidUpdate = () => {
+    if (isImage && this.props.current.source !== '') this.renderImage(this.props.current.source)
   }
 
   codeOrImage = () => {
@@ -27,21 +27,25 @@ class Main extends Component {
       ? (
           <Highlight className={syntax}>
             {this.props.current.source}
-          </Highlight> 
+          </Highlight>
         )
       : (
         <div className={imgContainer}>
-          <img id='image-holder' src='' className={img}/>
+          <img
+            id='image-holder'
+            alt={this.props.current.path}
+            src={''}
+            className={img} />
         </div>
       )
   }
 
-  componentDidUpdate = () => {
-    if(isImage && this.props.current.source !== '') this.renderImage(this.props.current.source)
+  renderImage = (blob) => {
+    let image = document.getElementById('image-holder')
+    image.src = 'data:image/bmp;base64,' + btoa(blob)
   }
 
   render () {
-    isImage = imageExt.indexOf(syntax) >= 0 ? true : false
     return (
       <div className={container} id={'code'}>
         {this.codeOrImage()}

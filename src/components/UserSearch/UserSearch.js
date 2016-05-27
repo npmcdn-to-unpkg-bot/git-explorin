@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { UserActionCreators } from 'actions'
@@ -10,31 +10,24 @@ class UserSearch extends Component {
 
   constructor () {
     super()
-
     this.state = {
-      results : [],
+      results: [],
     }
   }
 
   handleUserSearch = (e) => {
-    // persist event for time delayed action
     e.persist()
 
-    // clear queued search if any already queued
-    if(debounceSearch !== false) clearTimeout(debounceSearch)
+    if (debounceSearch !== false) clearTimeout(debounceSearch)
 
-    // add new search to queue
     debounceSearch = setTimeout(() => {
-      
-      // reset results on empty input and cancel queued
-      if(e.target.value.length === 0) {
+      if (e.target.value.length === 0) {
         return this.setState({
           ...this.state,
           results: [],
         })
       }
 
-      // perform search
       this.props.searchUsers(e.target.value)
         .then(({ data }) => {
           this.setState({
@@ -55,11 +48,16 @@ class UserSearch extends Component {
             onChange={this.handleUserSearch}
             className={search} />
         </div>
-        <UserSearchResults results={this.state.results}/>
+        <UserSearchResults results={this.state.results} />
       </div>
     )
   }
 }
+
+UserSearch.propTypes = {
+  searchUsers: PropTypes.func.isRequired,
+}
+
 export default connect(
   (state) => ({}),
   (dispatch) => (
