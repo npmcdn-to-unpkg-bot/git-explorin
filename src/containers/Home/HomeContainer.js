@@ -1,48 +1,16 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-let searchHandler = false
+import { bindActionCreators } from 'redux'
+import { UserSearch } from 'components'
+import { container, heading } from './styles.scss'
 
-class HomeContainer extends Component {
-
-  onFormSubmit = (e) => {
-    e.preventDefault()
-    this.context.router.push({
-      pathname: `/${e.target.username.value}/${e.target.repo.value}/${e.target.branch.value}`,
-    })
-  }
-
-  onFormChange = (e) => {
-    e.preventDefault()
-    clearTimeout(searchHandler)
-    searchHandler = setTimeout(() => console.info('Searching...'), 1500)
-  }
-
-  render () {
-    return (
-      <div>
-        <h1>{'Repo Explorer'}</h1>
-        <form onSubmit={this.onFormSubmit} onChange={this.onFormChange}>
-          <input
-            type='text'
-            name='username'
-            onChange={() => {}}
-            placeholder='username' />
-          <input
-            type='text'
-            name='repo'
-            onChange={() => {}}
-            placeholder='repo' />
-          <input
-            type='text'
-            name='branch'
-            onChange={(e) => {}}
-            placeholder='branch' />
-          <input
-            type='submit' />
-        </form>
-      </div>
-    )
-  }
+function HomeContainer (props) {
+  return (
+    <div className={container}>
+      <h1 className={heading}>{'GitExplorin\''}</h1>
+      <UserSearch />
+    </div>
+  )
 }
 
 HomeContainer.contextTypes = {
