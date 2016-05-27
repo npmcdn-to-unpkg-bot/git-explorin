@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { file, active } from './styles.scss'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as actionCreators from 'actions/files'
+import { EditorActionCreators } from 'actions'
 
 function File (props) {
   function activate (e) {
@@ -26,5 +26,5 @@ File.propTypes = {
 
 export default connect(
   (state) => ({ current: state.Files.current }),
-  (dispatch) => (bindActionCreators(actionCreators, dispatch))
+  (dispatch) => (bindActionCreators(EditorActionCreators, dispatch))
   )(File)

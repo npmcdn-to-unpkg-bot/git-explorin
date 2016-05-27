@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { container, tabs, tab, active } from './styles.scss'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as actionCreators from 'actions/files'
+import { EditorActionCreators } from 'actions'
 
 class Tabs extends Component {
 
@@ -55,5 +55,5 @@ export default connect(
     active: state.Files.active,
     current: state.Files.current,
   }),
-  (dispatch) => (bindActionCreators(actionCreators, dispatch))
+  (dispatch) => (bindActionCreators(EditorActionCreators, dispatch))
   )(Tabs)

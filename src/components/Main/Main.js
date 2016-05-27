@@ -3,7 +3,7 @@ import Highlight from 'react-highlight'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { container, imgContainer, img } from './styles.scss'
-import * as actionCreators from 'actions/files'
+import { EditorActionCreators } from 'actions'
 
 let syntax = ''
 let filepath = ''
@@ -56,5 +56,5 @@ Main.propTypes = {
 
 export default connect(
   (state) => ({ current: state.Files.current }),
-  (dispatch) => (bindActionCreators(actionCreators, dispatch))
+  (dispatch) => (bindActionCreators(EditorActionCreators, dispatch))
   )(Main)

@@ -3,7 +3,7 @@ import { File } from 'components'
 import { container, heading, openfiles } from './styles.scss'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as actionCreators from 'actions/files'
+import { EditorActionCreators } from 'actions'
 
 class OpenFiles extends Component {
 
@@ -39,5 +39,5 @@ OpenFiles.propTypes = {
 
 export default connect(
   (state) => ({ active: state.Files.active }),
-  (dispatch) => (bindActionCreators(actionCreators, dispatch))
+  (dispatch) => (bindActionCreators(EditorActionCreators, dispatch))
   )(OpenFiles)

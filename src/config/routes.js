@@ -4,6 +4,7 @@ import {
   MainContainer,
   HomeContainer,
   RepoContainer,
+  UserContainer,
 } from 'containers'
 
 export default function routes () {
@@ -11,7 +12,8 @@ export default function routes () {
     <Router history={hashHistory}>
       <Router path='/' component={MainContainer}>
         <IndexRoute component={HomeContainer} />
-        <Route path='/:username/:repo(/:branch)' component={RepoContainer} />
+        <Route path='/:username' component={UserContainer} />
+        <Route path='/:username/:repo/:branch' component={RepoContainer} />
       </Router>
     </Router>
   )

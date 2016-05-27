@@ -1,9 +1,22 @@
-.loading {
-  opacity: 0;
-  transition:all 0.5s ease-in-out;
+.container {
+  background:#eee;
+  padding:5em 0;
+  min-height: 100vh;
 }
 
-.loaded {
-  transition:all 0.5s ease-in-out;
-  opacity: 1;
+.heading {
+  text-align: center;
+  margin:0;
+  font-size: 4.5em;
+  font-weight: 300;
+  color:#444;
+  &::after, &::before {
+    padding:0.25em;
+  }
+  &::before {
+    content: '\f273'
+  }
+  &::after {
+    content: '\f232'
+  }
 }

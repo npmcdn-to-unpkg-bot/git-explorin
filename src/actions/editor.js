@@ -1,4 +1,7 @@
-import { fetchRepoDir, fetchFileSource } from '../api'
+import {
+  GithubFileAPI,
+  GithubRepoAPI
+} from 'api'
 import _ from 'lodash'
 
 function repositoryLoading () {
@@ -44,7 +47,7 @@ function setFileAsCurrent (file = {}) {
 export function fetchRepo (user, repo, branch = 'master') {
   return function (dispatch) {
     dispatch(repositoryLoading())
-    return fetchRepoDir(user, repo, branch)
+    return GithubRepoAPI.fetchRepoDir(user, repo, branch)
       .then((res) => dispatch(repositoryLoadSuccess(res)))
       .catch(() => dispatch(repositoryLoadFailure()))
   }
@@ -52,7 +55,7 @@ export function fetchRepo (user, repo, branch = 'master') {
 
 export function fetchFile (file) {
   return function (dispatch) {
-    return fetchFileSource(file.url)
+    return GithubFileAPI.fetchFileSource(file.url)
       .then(({ data }) => {
         file.source = data
         return dispatch(setFileAsCurrent(file))

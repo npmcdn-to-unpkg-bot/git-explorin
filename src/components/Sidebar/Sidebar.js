@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Directory, OpenFiles } from 'components'
 import { bindActionCreators } from 'redux'
-import * as fileActionCreators from 'actions/files'
+import { EditorActionCreators } from 'actions'
 import { connect } from 'react-redux'
 import { container } from './styles.scss'
 
@@ -30,5 +30,5 @@ Sidebar.propTypes = {
 
 export default connect(
   (state) => ({ directory: state.Files.directory }),
-  (dispatch) => (bindActionCreators(fileActionCreators, dispatch))
+  (dispatch) => (bindActionCreators(EditorActionCreators, dispatch))
   )(Sidebar)

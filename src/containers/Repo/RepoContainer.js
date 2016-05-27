@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as fileActionCreators from 'actions/files'
+import { EditorActionCreators } from 'actions'
 import { Sidebar, Tabs, Main, Footer } from 'components'
 import { container, column30, column70, column100, loading, loaded } from './styles.scss'
 
 class RepoContainer extends Component {
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     let { username, repo, branch } = this.props.params
     this.props.fetchRepo(username, repo, branch)
     document.title = repo
@@ -43,5 +43,5 @@ export default connect(
     current: state.Files.current,
     loading: state.Files.loading,
   }),
-  (dispatch) => (bindActionCreators(fileActionCreators, dispatch))
+  (dispatch) => (bindActionCreators(EditorActionCreators, dispatch))
   )(RepoContainer)

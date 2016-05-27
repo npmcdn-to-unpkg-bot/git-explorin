@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.search {
+  width:50vw;
+  min-width:300px;
+  margin:2em;
+  border:none;
+  border-bottom:6px solid #eee;
+  outline:none;
+  font-size: 1.8em;
+  font-weight: 200;
+  color:#666;
+  text-align: center;
+}
