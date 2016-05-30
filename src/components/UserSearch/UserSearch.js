@@ -44,7 +44,7 @@ class UserSearch extends Component {
       <div>
         <div className={container}>
           <input
-            placeholder='Github Username'
+            placeholder='Search Github Users and Organizations'
             onChange={this.handleUserSearch}
             className={search} />
         </div>

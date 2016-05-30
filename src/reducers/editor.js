@@ -4,27 +4,39 @@ const initialState = {
   current: {
     source: '',
     path: '',
+    extension: '',
   },
-  loading: true,
+  editorLoading: true,
+  fileLoading: false,
 }
 
-export default function Files (state = initialState, action) {
+export default function Editor (state = initialState, action) {
   switch (action.type) {
     case 'REPOSITORY_LOADING' :
       return {
         ...state,
-        loading: true,
+        editorLoading: true,
       }
     case 'REPOSITORY_LOAD_COMPLETE' :
       return {
         ...state,
-        loading: false,
+        editorLoading: false,
         directory: action.files,
       }
     case 'REPOSITORY_LOAD_FAILURE' :
       return {
         ...state,
-        loading: false,
+        editorLoading: false,
+      }
+    case 'FILE_LOADING_START' :
+      return {
+        ...state,
+        fileLoading: true,
+      }
+    case 'FILE_LOAD_COMPLETE' :
+      return {
+        ...state,
+        fileLoading: false,
       }
     case 'SET_FILE_AS_ACTIVE' :
       return {

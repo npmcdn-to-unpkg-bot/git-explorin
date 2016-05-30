@@ -14,8 +14,10 @@
 
 .column70 {
   composes: flex from '../../styles/main.scss';
-  flex-wrap:wrap;
+  flex-wrap: wrap;
   width: 70%;
+  justify-content: center;
+  align-items: baseline;
 }
 
 .column30 {

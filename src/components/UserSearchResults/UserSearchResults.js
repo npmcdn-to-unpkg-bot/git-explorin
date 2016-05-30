@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { list, item, username, avatar, fadeIn } from './styles.scss'
 import { Link } from 'react-router'
 
-function UserSearchResults (props) {
+const UserSearchResults = (props) => {
   return (
     <div className={list}>
       {

@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react'
-import { File } from 'components'
+import { DirectoryFile } from 'components'
 import { folder, folderActive, folderLink, folderLinkActive } from './styles.scss'
 
-function Folder (props) {
+const DirectoryFolder = (props) => {
   function toggleFolder (e) {
     e.target.className = e.target.className === folderLink ? folderLinkActive : folderLink
     e.target.parentElement.className = e.target.parentElement.className === folder ? folderActive : folder
@@ -10,21 +10,26 @@ function Folder (props) {
 
   return (
     <ul className={props.isRoot === true ? folderActive : folder}>
-      <li className={folderLink} onClick={toggleFolder}>{props.children}</li>
+      <li className={props.isRoot === true ? folderLinkActive : folderLink} onClick={toggleFolder}>{props.children}</li>
       {
         Object.keys(props.files).map((name, i) => {
           if (name === '__ref') return null
           return props.files[name].__ref.type === 'blob'
             ? (
-                <File
+                <DirectoryFile
                   file={props.files[name].__ref}
-                  key={props.files[name].__ref.path} />
+                  key={props.files[name].__ref.path}
+                  isActive={props.current.path === name}
+                  handleSetActive={props.handleSetActive} />
               )
             : (
                 <li key={i}>
-                  <Folder files={props.files[name]}>
+                  <DirectoryFolder
+                    files={props.files[name]}
+                    current={props.current}
+                    handleSetActive={props.handleSetActive}>
                     {name}
-                  </Folder>
+                  </DirectoryFolder>
                 </li>
               )
         })
@@ -33,10 +38,12 @@ function Folder (props) {
   )
 }
 
-Folder.propTypes = {
+DirectoryFolder.propTypes = {
   files: PropTypes.object.isRequired,
   isRoot: PropTypes.bool,
   children: PropTypes.string,
+  current: PropTypes.object.isRequired,
+  handleSetActive: PropTypes.func.isRequired,
 }
 
-export default Folder
+export default DirectoryFolder

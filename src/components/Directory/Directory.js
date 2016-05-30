@@ -1,20 +1,25 @@
 import React, { PropTypes } from 'react'
-import { Folder } from 'components'
-import { container, heading } from './styles.scss'
+import { DirectoryFolder } from 'components'
+import { container } from './styles.scss'
 
-function Directory ({ files, repo }) {
+const Directory = (props) => {
   return (
     <div className={container}>
-      <h1 className={heading}>{'folders'}</h1>
-      <Folder files={files} isRoot={true}>
-        {repo}
-      </Folder>
+      <DirectoryFolder
+        isRoot={true}
+        current={props.current}
+        files={props.files}
+        handleSetActive={props.handleSetActive}>
+        {props.repo}
+      </DirectoryFolder>
     </div>
   )
 }
 
 Directory.propTypes = {
   files: PropTypes.object.isRequired,
+  current: PropTypes.object.isRequired,
+  handleSetActive: PropTypes.func.isRequired,
   repo: PropTypes.string.isRequired,
 }
 

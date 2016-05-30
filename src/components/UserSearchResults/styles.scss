@@ -11,10 +11,10 @@
   margin: 0.5em 2em;
   transform:rotate3d(0, 1, 0, 0);
   transition:box-shadow 0.1s linear;
-  box-shadow: 0 4px 5px 0 rgba(52, 73, 94, 0), 0 6px 20px 0 rgba(52, 73, 94, 0);
+    box-shadow: 0 4px 5px 0 rgba(52, 73, 94, 0.175), 0 6px 20px 0 rgba(52, 73, 94, 0.01);
   &:hover {
+    box-shadow: 0 4px 5px 0 rgba(52, 73, 94, 0.205), 0 6px 20px 0 rgba(52, 73, 94, 0.1);
     transition:box-shadow 0.1s linear;
-    box-shadow: 0 4px 5px 0 rgba(52, 73, 94, 0.175), 0 6px 20px 0 rgba(52, 73, 94, 0.005)
   }
   &:active {
     box-shadow: 0 4px 5px 0 rgba(52, 73, 94, 0), 0 6px 20px 0 rgba(52, 73, 94, 0);

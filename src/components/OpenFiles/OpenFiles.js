@@ -1,43 +1,34 @@
-import React, { Component, PropTypes } from 'react'
-import { File } from 'components'
-import { container, heading, openfiles } from './styles.scss'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { EditorActionCreators } from 'actions'
+import React, { PropTypes } from 'react'
+import { DirectoryFile } from 'components'
+import { container, openfiles } from './styles.scss'
 
-class OpenFiles extends Component {
-
-  setFileInactive = (e) => {
-    e.stopPropagation()
-    this.props.setInactive(this.props.active[e.target.getAttribute('data-file')])
-  }
-
-  render () {
-    return (
-      <div className={container}>
-        <h1 className={heading}>{'open files'}</h1>
-        <ul className={openfiles}>
-          {
-            Object.keys(this.props.active).map((file) => {
-              return (
-                <File key={file} file={this.props.active[file]} >
-                  <i onClick={this.setFileInactive} data-file={file}></i>
-                </File>
-              )
-            })
-          }
-        </ul>
-      </div>
-    )
-  }
+const OpenFiles = (props) => {
+  return (
+    <div className={container}>
+      <ul className={openfiles}>
+        {
+          Object.keys(props.active).map((file) => {
+            return (
+              <DirectoryFile
+                key={file}
+                file={props.active[file]}
+                isActive={props.current.path === file}
+                handleSetActive={props.handleSetActive}>
+                <i onClick={props.handleSetInactive}></i>
+              </DirectoryFile>
+            )
+          })
+        }
+      </ul>
+    </div>
+  )
 }
 
 OpenFiles.propTypes = {
   active: PropTypes.object.isRequired,
-  setInactive: PropTypes.func.isRequired,
+  current: PropTypes.object.isRequired,
+  handleSetActive: PropTypes.func.isRequired,
+  handleSetInactive: PropTypes.func.isRequired,
 }
 
-export default connect(
-  (state) => ({ active: state.Files.active }),
-  (dispatch) => (bindActionCreators(EditorActionCreators, dispatch))
-  )(OpenFiles)
+export default OpenFiles

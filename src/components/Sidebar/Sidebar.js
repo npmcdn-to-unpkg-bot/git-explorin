@@ -1,34 +1,33 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { Directory, OpenFiles } from 'components'
-import { bindActionCreators } from 'redux'
-import { EditorActionCreators } from 'actions'
-import { connect } from 'react-redux'
-import { container } from './styles.scss'
+import { container, heading } from './styles.scss'
 
-class Sidebar extends Component {
-
-  componentDidMount = () => {
-    var { username, repo, branch } = this.props.params
-    this.props.fetchRepo(username, repo, branch)
-  }
-
-  render () {
-    return (
-      <div className={container}>
-        <OpenFiles />
-        <Directory repo={this.props.params.repo} files={this.props.directory} />
-      </div>
-    )
-  }
+const Sidebar = (props) => {
+  return (
+    <div className={container}>
+      <h1 className={heading}>{'open files'}</h1>
+      <OpenFiles
+        active={props.active}
+        current={props.current}
+        handleSetActive={props.handleSetActive}
+        handleSetInactive={props.handleSetInactive} />
+      <h1 className={heading}>{'folders'}</h1>
+      <Directory
+        repo={props.repo}
+        files={props.directory}
+        current={props.current}
+        handleSetActive={props.handleSetActive} />
+    </div>
+  )
 }
 
 Sidebar.propTypes = {
+  repo: PropTypes.string.isRequired,
+  current: PropTypes.object.isRequired,
+  active: PropTypes.object.isRequired,
   directory: PropTypes.object.isRequired,
-  params: PropTypes.object.isRequired,
-  fetchRepo: PropTypes.func.isRequired,
+  handleSetActive: PropTypes.func.isRequired,
+  handleSetInactive: PropTypes.func.isRequired,
 }
 
-export default connect(
-  (state) => ({ directory: state.Files.directory }),
-  (dispatch) => (bindActionCreators(EditorActionCreators, dispatch))
-  )(Sidebar)
+export default Sidebar

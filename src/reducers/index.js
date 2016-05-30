@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import Files from './files'
+import Editor from './editor'
 
 export default combineReducers({
-  Files,
+  Editor,
 })

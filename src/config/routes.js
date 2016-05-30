@@ -3,7 +3,7 @@ import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 import {
   MainContainer,
   HomeContainer,
-  RepoContainer,
+  EditorContainer,
   UserContainer,
 } from 'containers'
 
@@ -13,7 +13,7 @@ export default function routes () {
       <Router path='/' component={MainContainer}>
         <IndexRoute component={HomeContainer} />
         <Route path='/:username' component={UserContainer} />
-        <Route path='/:username/:repo/:branch' component={RepoContainer} />
+        <Route path='/:username/:repo/:branch' component={EditorContainer} />
       </Router>
     </Router>
   )

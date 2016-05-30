@@ -1,30 +1,36 @@
 import React, { PropTypes } from 'react'
-import { file, active } from './styles.scss'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { EditorActionCreators } from 'actions'
+import { SourceFile, ImageFile } from 'components'
+import { container, loading, loaded, loader } from './styles.scss'
+const exts = ['png', 'jpeg', 'svg', 'gif', 'tif']
 
-function File (props) {
-  function activate (e) {
-    props.setActive(props.file)
-  }
-
-  let fileStatus = props.current.path === props.file.path ? active : file
-  let filename = props.file.path.split('/')
-
-  return props.children === undefined
-    ? <li className={fileStatus} onClick={activate}>{filename[filename.length - 1]}</li>
-    : <li className={fileStatus} onClick={activate}>{props.children}{filename[filename.length - 1]}</li>
+const File = ({ fileLoading, current: { extension, source, path } }) => {
+  return (
+    <div className={container}>
+      <div className={`${loader} ${fileLoading ? loaded : loading}`}>
+        {'Loading...'}
+      </div>
+      <div className={`${fileLoading ? loading : loaded}`}>
+        {
+          exts.indexOf(extension) < 0
+          ? (
+              <SourceFile
+                extension={extension}
+                source={source}
+                path={path} />
+            )
+          : (
+              <ImageFile
+                source={source} />
+            )
+        }
+      </div>
+    </div>
+  )
 }
 
 File.propTypes = {
-  setActive: PropTypes.func.isRequired,
-  file: PropTypes.object.isRequired,
   current: PropTypes.object.isRequired,
-  children: PropTypes.element,
+  fileLoading: PropTypes.bool.isRequired,
 }
 
-export default connect(
-  (state) => ({ current: state.Files.current }),
-  (dispatch) => (bindActionCreators(EditorActionCreators, dispatch))
-  )(File)
+export default File

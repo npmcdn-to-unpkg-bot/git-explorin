@@ -1,4 +1,5 @@
 export MainContainer from './Main/MainContainer'
-export RepoContainer from './Repo/RepoContainer'
+export EditorContainer from './Editor/EditorContainer'
 export HomeContainer from './Home/HomeContainer'
+export TabsContainer from './Tabs/TabsContainer'
 export UserContainer from './User/UserContainer'
