@@ -8,47 +8,50 @@ let debounceSearch = false
 
 class UserSearch extends Component {
 
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
+
     this.state = {
-      results: [],
+      query : props.query || ''
     }
+  }
+
+  componentDidMount = () => {
+    this.props.searchUsers(this.state.query)
   }
 
   handleUserSearch = (e) => {
     e.persist()
 
+    this.setState({
+      query: e.target.value
+    })
+
+    if (e.target.value.length === 0) {
+      this.context.router.push('/')
+    } else {
+      this.context.router.push({
+        pathname: '/',
+        query: {
+          q : e.target.value
+        }
+      })
+    }
+
     if (debounceSearch !== false) clearTimeout(debounceSearch)
-
     debounceSearch = setTimeout(() => {
-      if (e.target.value.length === 0) {
-        return this.setState({
-          ...this.state,
-          results: [],
-        })
-      }
-
       this.props.searchUsers(e.target.value)
-        .then(({ data }) => {
-          this.setState({
-            ...this.state,
-            results: data.items,
-          })
-        })
-        .catch((err) => console.error(err))
     }, 500)
   }
 
   render () {
     return (
-      <div>
-        <div className={container}>
-          <input
-            placeholder='Search Github Users and Organizations'
-            onChange={this.handleUserSearch}
-            className={search} />
-        </div>
-        <UserSearchResults results={this.state.results} />
+      <div className={container}>
+        <input
+          value={this.state.query}
+          className={search}
+          onChange={this.handleUserSearch}
+          placeholder='Search Github Users' />
       </div>
     )
   }
@@ -56,6 +59,10 @@ class UserSearch extends Component {
 
 UserSearch.propTypes = {
   searchUsers: PropTypes.func.isRequired,
+}
+
+UserSearch.contextTypes = {
+  router: PropTypes.object.isRequired,
 }
 
 export default connect(

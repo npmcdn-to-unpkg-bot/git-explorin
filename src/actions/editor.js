@@ -2,63 +2,76 @@ import {
   GithubFileAPI,
   GithubRepoAPI,
 } from 'api'
+
 import _ from 'lodash'
 
-export const repositoryLoading = () => ({ type: 'REPOSITORY_LOADING' })
+const repositoryLoading = () => ({
+  type: 'REPOSITORY_LOADING',
+})
 
-export const loadingFile = () => ({ type: 'FILE_LOADING_START' })
+const repositoryLoaded = (files) => ({
+  type: 'REPOSITORY_LOADED',
+  files,
+})
 
-export const fileLoaded = () => ({ type: 'FILE_LOAD_COMPLETE' })
+const fileLoading = (status) => ({
+  type: 'FILE_LOADING',
+  status,
+})
 
-export const repositoryLoadSuccess = (files) => ({ type: 'REPOSITORY_LOAD_COMPLETE', files })
+const setFileAsActive = (active) => ({
+  type: 'SET_FILE_AS_ACTIVE',
+  active
+})
 
-export const repositoryLoadFailure = () => ({ type: 'REPOSITORY_LOAD_FAILURE' })
+const setFileAsInactive = (active) => ({
+  type: 'SET_FILE_AS_INACTIVE',
+  active
+})
 
-export const setFileAsActive = (active) => ({ type: 'SET_FILE_AS_ACTIVE', active })
-
-export const setFileAsInactive = (active) => ({ type: 'SET_FILE_AS_INACTIVE', active })
-
-export const setFileAsCurrent = (file) => ({ type: 'SET_FILE_AS_CURRENT', file })
+const setFileAsCurrent = (file) => ({
+  type: 'SET_FILE_AS_CURRENT',
+  file
+})
 
 export const fetchRepo = ({ username, repo, branch }) => (dispatch) => {
-  dispatch(repositoryLoading())
+  dispatch(repositoryLoading(true))
   return GithubRepoAPI.fetchRepoDir(username, repo, branch)
-    .then((res) => dispatch(repositoryLoadSuccess(res)))
-    .catch((err) => {
-      dispatch(repositoryLoadFailure())
-      console.error(err)
+    .then((files) => {
+      dispatch(repositoryLoaded(files))
     })
+    .catch((err) => console.error(err))
 }
 
 export const fetchFile = (file) => (dispatch) => {
   let filepath = file.path.split('.')
   return GithubFileAPI.fetchFileSource(file)
-    .then((res) => {
+    .then(({ data }) => {
       dispatch(setFileAsCurrent({
         ...file,
-        source: res.data,
+        source: data,
         extension: filepath[filepath.length - 1],
       }))
-      dispatch(fileLoaded())
+      dispatch(fileLoading(false))
     })
-    .catch((err) => console.error(err))
+    .catch(() => dispatch(fileLoading(false)))
 }
 
 export const setActive = (file) => (dispatch, getState) => {
   let { active, current } = getState().Editor
   if (current.path === file.path) return
-  dispatch(loadingFile())
+  dispatch(fileLoading(true))
   dispatch(setFileAsActive({ ...active, [file.path]: file }))
   dispatch(fetchFile(file))
 }
 
 export const addActive = (file) => (dispatch, getState) => {
-  let current = _.get(getState().Editor.directory, file.split('/'))
+  let current = _.get(getState().Editor.files, file.split('/'))
   return dispatch(setActive(current.__ref))
 }
 
 export const setInactive = (file) => (dispatch, getState) => {
-  dispatch(loadingFile())
+  dispatch(fileLoading(true))
   let { active, current } = getState().Editor
   active = _.omit(active, [file.path])
   dispatch(setFileAsInactive(active))
@@ -66,6 +79,6 @@ export const setInactive = (file) => (dispatch, getState) => {
   else if (_.keys(active).length >= 1) dispatch(fetchFile(active[_.keys(active)[0]]))
   else {
     dispatch(setFileAsCurrent({ source: '', path: '', extension: '' }))
-    dispatch(fileLoaded())
+    dispatch(fileLoading(false))
   }
 }

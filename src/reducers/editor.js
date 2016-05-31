@@ -1,12 +1,12 @@
 const initialState = {
-  directory: {},
+  files: {},
   active: {},
   current: {
     source: '',
     path: '',
     extension: '',
   },
-  editorLoading: true,
+  repoLoading: true,
   fileLoading: false,
 }
 
@@ -15,28 +15,18 @@ export default function Editor (state = initialState, action) {
     case 'REPOSITORY_LOADING' :
       return {
         ...state,
-        editorLoading: true,
+        repoLoading: true,
       }
-    case 'REPOSITORY_LOAD_COMPLETE' :
+    case 'REPOSITORY_LOADED' :
       return {
         ...state,
-        editorLoading: false,
-        directory: action.files,
+        repoLoading: false,
+        files: action.files,
       }
-    case 'REPOSITORY_LOAD_FAILURE' :
+    case 'FILE_LOADING' :
       return {
         ...state,
-        editorLoading: false,
-      }
-    case 'FILE_LOADING_START' :
-      return {
-        ...state,
-        fileLoading: true,
-      }
-    case 'FILE_LOAD_COMPLETE' :
-      return {
-        ...state,
-        fileLoading: false,
+        fileLoading: action.status,
       }
     case 'SET_FILE_AS_ACTIVE' :
       return {
@@ -52,11 +42,6 @@ export default function Editor (state = initialState, action) {
       return {
         ...state,
         current: action.file,
-      }
-    case 'SET_CODE' :
-      return {
-        ...state,
-        code: action.code,
       }
     default :
       return state

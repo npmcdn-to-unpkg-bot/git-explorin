@@ -6,7 +6,8 @@ export function fetchFileSource ({ url }) {
     url: `${url}?${credentials}`,
     method: 'get',
     transformResponse: function (data) {
-      return atob(JSON.parse(data).content)
+      let contentStr = JSON.parse(data).content
+      return atob(contentStr.replace(/\s/g, ''))
     },
   })
 }

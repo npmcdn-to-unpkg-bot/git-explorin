@@ -1,41 +1,75 @@
-import React, { PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { DirectoryFile } from 'components'
 import { folder, folderActive, folderLink, folderLinkActive } from './styles.scss'
+let i = 0;
+class DirectoryFolder extends Component {
 
-const DirectoryFolder = (props) => {
-  function toggleFolder (e) {
+  constructor () {
+    super()
+
+    this.state = {
+      rendered: false
+    }
+  }
+
+  toggleFolder = (e) => {
     e.target.className = e.target.className === folderLink ? folderLinkActive : folderLink
     e.target.parentElement.className = e.target.parentElement.className === folder ? folderActive : folder
   }
 
-  return (
-    <ul className={props.isRoot === true ? folderActive : folder}>
-      <li className={props.isRoot === true ? folderLinkActive : folderLink} onClick={toggleFolder}>{props.children}</li>
-      {
-        Object.keys(props.files).map((name, i) => {
-          if (name === '__ref') return null
-          return props.files[name].__ref.type === 'blob'
-            ? (
-                <DirectoryFile
-                  file={props.files[name].__ref}
-                  key={props.files[name].__ref.path}
-                  isActive={props.current.path === name}
-                  handleSetActive={props.handleSetActive} />
-              )
-            : (
-                <li key={i}>
-                  <DirectoryFolder
-                    files={props.files[name]}
-                    current={props.current}
-                    handleSetActive={props.handleSetActive}>
-                    {name}
-                  </DirectoryFolder>
-                </li>
-              )
-        })
-      }
-  </ul>
-  )
+  sortCurrentDirectory = () => {
+    return Object.keys(this.props.files).sort((a, b) => {
+      a = this.props.files[a].__ref !== undefined ? this.props.files[a].__ref : this.props.files[a]
+      b = this.props.files[b].__ref !== undefined ? this.props.files[b].__ref : this.props.files[b]
+      if (a.type > b.type) return -1
+      else if (a.type < b.type) return 1
+      else return 0
+    })
+  }
+
+  shouldComponentUpdate = (nextProps, nextState) => {
+    i += 1
+    console.log(`trying the render for the (${i})nth time`)
+    if(nextState.rendered === false) {
+      this.setState({
+        rendered:true
+      })
+      return true
+    } else {
+      return false
+    }
+  }
+
+  render () {
+    return (
+      <ul className={this.props.isRoot === true ? folderActive : folder}>
+        <li className={this.props.isRoot === true ? folderLinkActive : folderLink} onClick={this.toggleFolder}>{this.props.children}</li>
+        {
+          this.sortCurrentDirectory().map((name, idx) => {
+            if (name === '__ref') return null
+            return this.props.files[name].__ref.type === 'blob'
+              ? (
+                  <DirectoryFile
+                    file={this.props.files[name].__ref}
+                    key={this.props.files[name].__ref.path}
+                    isActive={false}
+                    handleSetActive={this.props.handleSetActive} />
+                )
+              : (
+                  <li key={idx}>
+                    <DirectoryFolder
+                      files={this.props.files[name]}
+                      current={this.props.current}
+                      handleSetActive={this.props.handleSetActive}>
+                      {name}
+                    </DirectoryFolder>
+                  </li>
+                )
+          })
+        }
+    </ul>
+    )
+  }
 }
 
 DirectoryFolder.propTypes = {

@@ -14,7 +14,7 @@ const Sidebar = (props) => {
       <h1 className={heading}>{'folders'}</h1>
       <Directory
         repo={props.repo}
-        files={props.directory}
+        files={props.files}
         current={props.current}
         handleSetActive={props.handleSetActive} />
     </div>
@@ -25,7 +25,7 @@ Sidebar.propTypes = {
   repo: PropTypes.string.isRequired,
   current: PropTypes.object.isRequired,
   active: PropTypes.object.isRequired,
-  directory: PropTypes.object.isRequired,
+  files: PropTypes.object.isRequired,
   handleSetActive: PropTypes.func.isRequired,
   handleSetInactive: PropTypes.func.isRequired,
 }

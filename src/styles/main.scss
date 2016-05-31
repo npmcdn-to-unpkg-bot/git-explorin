@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,300);
-@import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
+@import url(../assets/fonts/Ionicons/css/ionicons.min.css);
 
 html {
   background-color: #fff;
@@ -8,7 +8,7 @@ html {
 body {
   margin: 0 auto;
   min-width: 600px;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Lato';
   font-weight: 400;
 }
 
@@ -43,22 +43,65 @@ body {
 
 
 
-::-webkit-scrollbar {
+:global(::-webkit-scrollbar) {
   width: 12px;
 }
  
-::-webkit-scrollbar-track {
+:global(::-webkit-scrollbar-track) {
   background:rgb(200, 200, 200);
 }
  
-::-webkit-scrollbar-thumb {
+:global(::-webkit-scrollbar-thumb) {
   background:rgb(220, 220, 220);
 }
 
-::-webkit-scrollbar-corner {
+:global(::-webkit-scrollbar-corner) {
   background:rgb(200, 200, 200);
 }
 
 .nohighlight {
     color:#ddd;
+}
+
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.root {
+    height: 100vh;
+    width: 100vw;
+}
+
+:global(.Resizer) {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background: transparent;
+    z-index: 1;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding;
+    background-clip: padding-box;
+}
+
+:global(.Resizer:hover) {
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+:global(.Resizer.vertical) {
+    width: 4px;
+    padding: 4px;
+    background-color: #aaa;
+    cursor: col-resize;
+}
+
+:global(.Resizer.vertical:hover) {
+  background: rgba(95, 179, 179, 1);
+}
+
+:global(.Resizer.vertical:active) {
+    background: rgba(95, 179, 179, 0.6);
 }

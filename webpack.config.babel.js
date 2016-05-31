@@ -36,7 +36,11 @@ const base = {
     noParse: [/autoit\.js$/],
     loaders: [
       {test: /\.js$/, exclude: /node_modules/, loaders : ['babel-loader']},
-      {test: /\.scss$/, loaders: ['style?sourceMap', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', 'sass']}
+      {test: /\.scss$/, loaders: ['style?sourceMap', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', 'sass']},
+      { test: /\.png$/, loader: "url-loader?limit=200000" },
+      { test: /\.jpg$/, loader: "file-loader" },
+      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
+      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
     ]
   },
   resolve: {
