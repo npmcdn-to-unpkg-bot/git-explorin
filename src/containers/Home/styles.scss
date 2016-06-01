@@ -38,6 +38,23 @@
 .section {
   display: flex;
   justify-content:center;
-  padding:5em 0;
+  padding:2em 0 5em 0;
   background-color: #fbfbfb;
+}
+
+.img {
+  width:60vw;
+  opacity: 0.7;
+  box-shadow: 0 5px 30px -10px #666;
+  min-width:400px;
+  border-radius: 3px;
+  border: 1px solid #dfdfdf;
+}
+
+.footer {
+  background-image: url('../../assets/images/gplaypattern/gplaypattern.png');
+  background-color: #ddd;
+  border-top:2px solid rgba(95, 179, 179, 0.15);
+  padding:4em;
+  content:"";
 }

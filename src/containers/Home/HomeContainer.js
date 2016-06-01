@@ -2,7 +2,8 @@ import React, { PropTypes } from 'react'
 import { UserSearch, UserSearchResults } from 'components'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
-import { container, header, headerTitle, hero, heroTitle, section } from './styles.scss'
+import { container, header, footer, hero, headerTitle, heroTitle, section, img } from './styles.scss'
+import editor_screenshot from '../../assets/images/editor_screenshot.png'
 
 function HomeContainer (props) {
   return (
@@ -23,14 +24,15 @@ function HomeContainer (props) {
                 <h1 className={heroTitle}>A familiar way to explore Github repositories.</h1>
               </div>
               <div className={section}>
-                <div style={{ maxWidth:'600px', width: '100%'}}>
-                  <img style={{width:'100%'}} src='../../assets/images/editor_screenshot.png' />
+                <div>
+                  <img className={img} src={editor_screenshot} />
                 </div>
               </div>
             </div>
             )
         }
       </div>
+      <div className={footer}></div>
     </div>
   )
 }
