@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { UserSearch, UserSearchResults } from 'components'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
-import { container, header, footer, hero, headerTitle, heroTitle, section, img } from './styles.scss'
+import { container, header, footer, hero, headerTitle, heroTitle, main, section, img } from './styles.scss'
 import editor_screenshot from '../../assets/images/editor_screenshot.png'
 
 function HomeContainer (props) {
@@ -12,7 +12,7 @@ function HomeContainer (props) {
         <Link to='/' className={headerTitle}>{'GitExplorin\''}</Link>
         <UserSearch query={props.location.query.q}/>
       </div>
-      <div>
+      <div className={main}>
         {
           (props.users.length > 0 || props.location.query.q !== undefined)
           ? (
