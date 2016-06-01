@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { EditorActionCreators } from 'actions'
 import { Sidebar, Tabs, File, Footer } from 'components'
-import { container, column30, column70, column100, loading, loaded } from './styles.scss'
+import { container, loading, loaded } from './styles.scss'
 import SplitPane from 'react-split-pane'
 
 class EditorContainer extends Component {
@@ -58,7 +58,7 @@ class EditorContainer extends Component {
   render () {
     return (
       <div className={this.props.repoLoading ? loading : loaded}>
-        <div style={{display:'flex', flex: 1, height: 'calc(100vh - 40px)'}}>
+        <div className={container}>
           <SplitPane defaultSize="30%" split="vertical" onChange={this.handleWindowPaneResize}>
             <div>
               <Sidebar

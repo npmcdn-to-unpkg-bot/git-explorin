@@ -75,7 +75,7 @@ export const setInactive = (file) => (dispatch, getState) => {
   let { active, current } = getState().Editor
   active = _.omit(active, [file.path])
   dispatch(setFileAsInactive(active))
-  if (file.path !== current.path) return
+  if (file.path !== current.path) return dispatch(fileLoading(false))
   else if (_.keys(active).length >= 1) dispatch(fetchFile(active[_.keys(active)[0]]))
   else {
     dispatch(setFileAsCurrent({ source: '', path: '', extension: '' }))
