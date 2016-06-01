@@ -20,7 +20,9 @@ const File = ({ fileLoading, current: { extension, source, path } }) => {
             )
           : (
               <ImageFile
-                source={source} />
+                extension={extension}
+                source={source}
+                path={path} />
             )
         }
       </div>

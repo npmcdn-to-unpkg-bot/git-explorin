@@ -5,22 +5,25 @@ import { container } from './styles.scss'
 const Tabs = (props) => {
   let files = Object.keys(props.active)
   return (
-    <ul className={container}>
-      {
-        files.map((file, idx) => {
-          let filename = file.split('/')
-          return (
-            <Tab
-              key={idx}
-              path={file}
-              isActive={props.current.path === file}
-              filename={filename[filename.length - 1]}
-              handleSetActive={props.handleSetActive}
-              handleSetInactive={props.handleSetInactive} />
-            )
-        })
-      }
-    </ul>
+      <div style={{maxWidth:props.size.secondary, minWidth:'100%'}}>
+        <ul className={container}>
+          {
+            files.map((file, idx) => {
+              let filename = file.split('/')
+              return (
+                <Tab
+                  key={idx}
+                  path={file}
+                  isActive={props.current.path === file}
+                  filename={filename[filename.length - 1]}
+                  handleSetActive={props.handleSetActive}
+                  handleSetInactive={props.handleSetInactive} />
+                )
+            })
+          }
+          <li></li>
+        </ul>
+      </div>
   )
 }
 

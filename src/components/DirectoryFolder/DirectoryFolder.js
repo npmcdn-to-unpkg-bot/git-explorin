@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { DirectoryFile } from 'components'
 import { folder, folderActive, folderLink, folderLinkActive } from './styles.scss'
-let i = 0;
+
 class DirectoryFolder extends Component {
 
   constructor () {
@@ -28,8 +28,6 @@ class DirectoryFolder extends Component {
   }
 
   shouldComponentUpdate = (nextProps, nextState) => {
-    i += 1
-    console.log(`trying the render for the (${i})nth time`)
     if(nextState.rendered === false) {
       this.setState({
         rendered:true

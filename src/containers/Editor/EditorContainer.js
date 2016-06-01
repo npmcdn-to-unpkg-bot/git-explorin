@@ -5,10 +5,40 @@ import { EditorActionCreators } from 'actions'
 import { Sidebar, Tabs, File, Footer } from 'components'
 import { container, column30, column70, column100, loading, loaded } from './styles.scss'
 import SplitPane from 'react-split-pane'
+
 class EditorContainer extends Component {
+  constructor () {
+    super()
+    this.state = {
+      width: {
+        primary: ((window.innerWidth / 100) * 30) - 4,
+        secondary: ((window.innerWidth / 100) * 70) - 4,
+      }
+    }
+  }
 
   componentDidMount = () => {
+    window.addEventListener('resize', this.handleWindowResize);
     this.props.fetchRepo(this.props.params)
+  }
+
+  handleWindowResize = () => {
+    this.setState({
+      width: {
+        primary: ((window.innerWidth / 100) * 30) - 4,
+        secondary: ((window.innerWidth / 100) * 70) - 4,
+      }
+    })
+  }
+
+  handleWindowPaneResize = (size) => {
+    this.setState({
+      ...this.state,
+      width: {
+        primary: size - 4,
+        secondary: (window.innerWidth - size) - 4,
+      }
+    })
   }
 
   handleSetActive = (e) => {
@@ -29,7 +59,7 @@ class EditorContainer extends Component {
     return (
       <div className={this.props.repoLoading ? loading : loaded}>
         <div style={{display:'flex', flex: 1, height: 'calc(100vh - 40px)'}}>
-          <SplitPane defaultSize="30%" split="vertical">
+          <SplitPane defaultSize="30%" split="vertical" onChange={this.handleWindowPaneResize}>
             <div>
               <Sidebar
                 repo={this.props.params.repo}
@@ -44,7 +74,8 @@ class EditorContainer extends Component {
                 active={this.props.active}
                 current={this.props.current}
                 handleSetActive={this.handleSetActive}
-                handleSetInactive={this.handleSetInactive} />
+                handleSetInactive={this.handleSetInactive}
+                size={this.state.width}/>
               <File
                 current={this.props.current}
                 fileLoading={this.props.fileLoading} />
