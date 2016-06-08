@@ -1,10 +1,10 @@
 import React from 'react'
-import { container } from './styles.scss'
+import { container, title } from './styles.scss'
 
 function TopMenu () {
   return (
     <div className={container}>
-      Top Menu
+      <div className={title}>{'Git Explorin'}</div>
     </div>
   )
 }

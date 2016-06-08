@@ -48,11 +48,11 @@ body {
 }
  
 :global(::-webkit-scrollbar-track) {
-  background:#474752;
+  background:#3E3E47
 }
  
 :global(::-webkit-scrollbar-thumb) {
-  background:rgb(214, 214, 219);
+  background:#54545F;
 }
 
 :global(::-webkit-scrollbar-corner) {
@@ -75,7 +75,7 @@ body {
 
 :global(.Resizer) {
     box-sizing: border-box;
-    background: transparent;
+    background: #fbfcfc;
     background-clip: padding-box;
 }
 
@@ -85,11 +85,11 @@ body {
 
 :global(.Resizer.vertical) {
     width: 4px;
-    position: absolute;
+    position: relative;
     padding: 4px;
-    background-color: rgba(255, 255, 255, 0);
+    background-color: #fbfcfc;
     cursor: col-resize;
-    height: 100%;
+    top: 65px;
     z-index: 1;
 }
 

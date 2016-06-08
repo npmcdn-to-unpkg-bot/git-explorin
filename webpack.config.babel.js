@@ -47,6 +47,7 @@ const base = {
     noParse: [/autoit\.js$/],
     loaders: [
       {test: /\.js$/, exclude: /node_modules/, loaders : ['babel-loader']},
+      {test: /\.json$/, loader: 'json'},
       {test: /\.scss|.css$/, loaders: ['style?sourceMap', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', 'sass']},
       { test: /\.png$/, loader: "url-loader?limit=200000" },
       { test: /\.jpg$/, loader: "file-loader" },

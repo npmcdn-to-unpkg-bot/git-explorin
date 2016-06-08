@@ -36,6 +36,10 @@ export const fetchRepo = ({ username, repo, splat }) => (dispatch) => {
   return GithubRepoAPI.fetchRepoDir(username, repo, splat)
     .then((files) => {
       dispatch(repositoryLoaded(files))
+      return files['README.md']['__ref']
+    })
+    .then((file) => {
+      if(file !== undefined) dispatch(setActive(file))
     })
     .catch((err) => console.log(err.status))
 }

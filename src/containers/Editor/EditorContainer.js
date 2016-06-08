@@ -29,7 +29,6 @@ class EditorContainer extends Component {
         ...this.state,
         repository:next.params
       }, () => {
-        console.log("fetching")
         this.handleFetchRepo(this.props.params)
       })
     }

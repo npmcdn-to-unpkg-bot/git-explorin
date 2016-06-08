@@ -1,6 +1,8 @@
 import React, { PropTypes, Component } from 'react'
+import Markdown from 'react-remarkable'
 import ReactDOM from 'react-dom'
 import hljs from 'highlight.js'
+import { container, markdownBody } from './styles.scss'
 
 class SourceFile extends Component {
 
@@ -73,7 +75,15 @@ class SourceFile extends Component {
   }
 
   render () {
-    return (
+    return this.state.ext === 'md' 
+    ? (
+        <div className={container}>
+          <div className={markdownBody}>
+            <Markdown container={'div'} source={this.state.source} />
+          </div>
+        </div>
+      )
+    : (
       <pre>
         <code className={this.state.ext}>
           {this.state.source}

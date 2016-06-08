@@ -1,5 +1,12 @@
 .container {
-  height: 60px;
-  min-height: 60px;
+  height: 30px;
+  min-height: 30px;
   background-color: #EFEFF1;
+  display: flex;
+  align-items:center;
+}
+
+.title {
+  padding:0 0.6em;
+  font-variant: small-caps;
 }

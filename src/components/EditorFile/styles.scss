@@ -2,7 +2,7 @@
 
 .container {
   width: 100%;
-  min-height: calc(100vh - 165px);
+  min-height: calc(100vh - 135px);
   overflow: hidden;
   background-color: transparent;
   display: flex;
@@ -20,7 +20,7 @@
     code {
       width:100%;
       padding:1em;
-      height: calc(100vh - 165px);
+      height: calc(100vh - 135px);
       font-family: 'Source Code Pro';
       font-style: normal;
       font-size: 0.95em;
@@ -30,17 +30,24 @@
 }
 
 .loading {
-  display: normal;
+  opacity: 1;
 }
 
 .loaded {
-  display: none;
+  transition:opacity 0.1s linear 0.25s;
+  opacity: 0;
 }
 
 
 .loader {
+  color: #666;
+  background: #fbfcfc;
+  position: absolute;
+  top: calc(100% - 51px);
+  padding: 1em;
+  z-index: 1;
   text-align: center;
-  color:#666;
+  box-shadow: 0 5px 10px 4px rgba(0, 0, 0, 0.1);
 }
 
 
