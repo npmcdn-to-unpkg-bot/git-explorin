@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Sidebar, Tabs, File, Footer, TopMenu } from 'components'
+import { EditorSidebar, EditorFooter, EditorTabBar, EditorFile, TopMenu } from 'components'
 import SplitPane from 'react-split-pane'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -84,7 +84,7 @@ class EditorContainer extends Component {
         <div className={container}>
           <SplitPane defaultSize={'30%'} split={'vertical'} onChange={this.handleWindowPaneResize}>
             <div>
-              <Sidebar
+              <EditorSidebar
                 params={this.props.params}
                 active={this.props.active}
                 current={this.props.current}
@@ -93,20 +93,20 @@ class EditorContainer extends Component {
                 handleSetInactive={this.handleSetInactive} />
             </div>
             <div>
-              <Tabs
+              <EditorTabBar
                 active={this.props.active}
                 current={this.props.current}
                 handleSetActive={this.handleSetActive}
                 handleSetInactive={this.handleSetInactive}
                 size={this.state.width}/>
-              <File
+              <EditorFile
                 current={this.props.current}
                 fileLoading={this.props.fileLoading}
                 size={this.state.width}/>
             </div>
           </SplitPane>
         </div>
-        <Footer
+        <EditorFooter
           handleBranchChange={this.handleBranchChange}
           branches={['master', 'development', 'my-feature']}
           current={this.props.current}

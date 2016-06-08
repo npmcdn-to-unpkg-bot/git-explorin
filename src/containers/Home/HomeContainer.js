@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { GithubSearch, UserSearchResults, MainHero } from 'components'
+import { GithubSearch, UserSearchResults, HomeHero } from 'components'
 import { Link } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -23,7 +23,7 @@ class HomeContainer extends Component {
           {
             this.props.location.query.q !== undefined
             ? <UserSearchResults query={this.props.location.query.q} results={this.props.users} />
-            : <MainHero />
+            : <HomeHero />
           }
         </div>
         <div className={footer}></div>

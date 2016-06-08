@@ -1,0 +1,23 @@
+.container {
+  composes: flex from 'styles/main.scss';
+  justify-content:space-between;
+  width:100%;
+  background-color:#2B2B31;
+  height: 40px;
+  font-weight: 300;
+  & a {
+    color:#aaa;
+    text-decoration: none;
+    &:hover {
+      color:#bbb;
+      text-decoration: underline;
+    }
+  }
+}
+
+.branch {
+  display: flex;
+  justify-content:flex-end;
+  align-items:center;
+  padding:1em;
+}

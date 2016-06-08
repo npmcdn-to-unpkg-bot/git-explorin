@@ -1,0 +1,48 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:300,600,500,400);
+
+.container {
+  width: 100%;
+  min-height: calc(100vh - 165px);
+  overflow: hidden;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #fbfcfc;
+  & > div {
+    width:100%;
+  }
+  & pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin:0;
+    width: 100%;
+    code {
+      width:100%;
+      padding:1em;
+      height: calc(100vh - 165px);
+      font-family: 'Source Code Pro';
+      font-style: normal;
+      font-size: 0.95em;
+      background: transparent !important;
+    }
+  }
+}
+
+.loading {
+  display: normal;
+}
+
+.loaded {
+  display: none;
+}
+
+
+.loader {
+  text-align: center;
+  color:#666;
+}
+
+
+
+

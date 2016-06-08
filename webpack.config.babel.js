@@ -23,6 +23,11 @@ const HTMLWebpackPluginSecondary = new HtmlWebpackPlugin({
   filename: '200.html',
   inject: 'body'
 })
+const UglifyJsPlugin = new webpack.optimize.UglifyJsPlugin({
+  compress: {
+    warnings:false
+  }
+})
 
 const productionPlugin = new webpack.DefinePlugin({
   'process.env': {
@@ -68,7 +73,7 @@ const developmentConfig = {
 
 const productionConfig = {
   devtool: 'cheap-module-source-map',
-  plugins: [HTMLWebpackPluginConfig, HTMLWebpackPluginSecondary, productionPlugin]
+  plugins: [HTMLWebpackPluginConfig, HTMLWebpackPluginSecondary, UglifyJsPlugin, productionPlugin]
 }
 
 var env = isProduction === true ? productionConfig : developmentConfig
