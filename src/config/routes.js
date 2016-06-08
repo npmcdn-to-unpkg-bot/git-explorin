@@ -1,19 +1,19 @@
 import React from 'react'
-import { Router, Route, hashHistory, IndexRoute } from 'react-router'
+import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import {
   MainContainer,
   HomeContainer,
   EditorContainer,
-  UserContainer,
+  ProfileContainer,
 } from 'containers'
 
 export default function routes () {
   return (
-    <Router history={hashHistory}>
+    <Router history={browserHistory}>
       <Router path='/' component={MainContainer}>
         <IndexRoute component={HomeContainer} />
-        <Route path='/:username' component={UserContainer} />
-        <Route path='/:username/:repo/:branch' component={EditorContainer} />
+        <Route path='/:username' component={ProfileContainer} />
+        <Route path='/:username/:repo/*' component={EditorContainer} />
       </Router>
     </Router>
   )

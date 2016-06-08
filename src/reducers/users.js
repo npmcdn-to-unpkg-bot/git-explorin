@@ -1,5 +1,6 @@
 const initialState = {
   usersLoading:false,
+  profileLoading:true,
   users:[],
 }
 
@@ -15,6 +16,16 @@ const Users = (state = initialState, action) => {
         ...state,
         usersLoading: false,
         users: action.users,
+      }
+    case 'PROFILE_LOADING':
+      return {
+        ...state,
+        profileLoading: true,
+      }
+    case 'PROFILE_LOADED':
+      return {
+        ...state,
+        profileLoading: false,
       }
     default:
       return state

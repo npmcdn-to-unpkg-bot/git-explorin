@@ -11,12 +11,14 @@ const UserSearchResults = (props) => {
             let el = document.getElementById(user.login)
             if (el === null) return
             else el.className = fadeIn
-          }, (idx * 20) + 200)
+          }, (idx * 20) + 150)
 
           return (
-            <li id={user.login} key={user.login} className={item}>
-              <img alt={user.login} src={user.avatar_url}/>
-              <p>{user.login}</p>
+            <li id={user.login} className={item} key={user.login}>
+              <Link to={`/${user.login}`} >
+                <p>{user.login}</p>
+                <img alt={user.login} src={user.avatar_url}/>
+              </Link>
             </li>
           )
         })

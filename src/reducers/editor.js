@@ -20,6 +20,8 @@ export default function Editor (state = initialState, action) {
     case 'REPOSITORY_LOADED' :
       return {
         ...state,
+        current: initialState.current,
+        active: initialState.active,
         repoLoading: false,
         files: action.files,
       }

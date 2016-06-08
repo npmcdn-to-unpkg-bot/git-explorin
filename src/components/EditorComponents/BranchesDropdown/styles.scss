@@ -1,0 +1,48 @@
+:global(.Dropdown-root.is-open) {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    border-bottom: 45px solid transparent;
+    & > :global(.Dropdown-control) {
+      position: relative;
+      top: 35px;
+      right:16px;
+    }
+  }
+
+:global(.Dropdown-placeholder) {
+  font-weight: bold;
+  color:#5fb3b3;
+  opacity: 0.5;
+  transition:opacity 0.1s linear;
+  cursor: pointer;
+  white-space: nowrap;
+  &:before {
+    content:"\e9bc";
+    padding:6px;
+  }
+  &:hover {
+    opacity: 1;
+    transition:opacity 0.1s linear;
+  }
+}
+
+:global(.Dropdown-menu) {
+  position: absolute;
+  bottom: -5px;
+  right: 0;
+  background-color: #E4E4E7;
+  padding: 1em;
+  border-radius: 3px 0 0 0;
+  border-bottom: 5px solid #e4e4e7;
+  & > :global(.Dropdown-option) {
+    color:#858593;
+    padding:0.25em 0;
+    font-weight: bold;
+    white-space: nowrap;
+    cursor: pointer;
+    &:hover {
+      color:#5fb3b3;
+    }
+  }
+}

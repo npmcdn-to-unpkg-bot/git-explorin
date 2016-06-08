@@ -1,0 +1,36 @@
+.header {
+  display: flex;
+  flex-wrap:wrap;
+  align-items:center;
+  padding:1em 0;
+  height: 180px;
+  background-image: url(../../../assets/images/gplaypattern/gplaypattern.png);
+}
+
+.basic {
+  flex:1;
+  & > p {
+    text-align: center;
+    font-size:1.2em;
+    font-weight:bold;
+    color:#666;
+    &.name {
+      font-size:1.5em;
+      color:#444;
+    }
+  }
+
+}
+
+.avatar {
+  max-height: 180px;
+  width: 180px;
+  height: 180px;
+  opacity: 0.5;
+  border-radius: 1px;
+  background-size: contain;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  color:rgba(255, 255, 255, 0.5);
+}

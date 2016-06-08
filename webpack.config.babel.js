@@ -18,6 +18,12 @@ const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   inject: 'body'
 })
 
+const HTMLWebpackPluginSecondary = new HtmlWebpackPlugin({
+  template: PATHS.src + '/index.html',
+  filename: '200.html',
+  inject: 'body'
+})
+
 const productionPlugin = new webpack.DefinePlugin({
   'process.env': {
     NODE_ENV: JSON.stringify('production')
@@ -36,11 +42,11 @@ const base = {
     noParse: [/autoit\.js$/],
     loaders: [
       {test: /\.js$/, exclude: /node_modules/, loaders : ['babel-loader']},
-      {test: /\.scss$/, loaders: ['style?sourceMap', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', 'sass']},
+      {test: /\.scss|.css$/, loaders: ['style?sourceMap', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', 'sass']},
       { test: /\.png$/, loader: "url-loader?limit=200000" },
       { test: /\.jpg$/, loader: "file-loader" },
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
-      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
+      { test: /\.(ttf|eot|woff|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
     ]
   },
   resolve: {
@@ -55,13 +61,14 @@ const developmentConfig = {
     hot: true,
     inline: true,
     progress: true,
+    historyApiFallback: true
   },
   plugins: [HTMLWebpackPluginConfig, new webpack.HotModuleReplacementPlugin()]
 }
 
 const productionConfig = {
   devtool: 'cheap-module-source-map',
-  plugins: [HTMLWebpackPluginConfig, productionPlugin]
+  plugins: [HTMLWebpackPluginConfig, HTMLWebpackPluginSecondary, productionPlugin]
 }
 
 var env = isProduction === true ? productionConfig : developmentConfig

@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,300);
-@import url(../assets/fonts/Ionicons/css/ionicons.min.css);
+@import url(../assets/fonts/icomoon/style.scss);
 
 html {
   background-color: #fff;
@@ -7,7 +7,7 @@ html {
 
 body {
   margin: 0 auto;
-  min-width: 600px;
+  min-width: 760px;
   font-family: 'Lato';
   font-weight: 400;
 }
@@ -17,7 +17,7 @@ body {
   -webkit-font-smoothing: antialiased;
   box-sizing:border-box;
   &:before, &:after {
-    font-family: 'Ionicons'
+    font-family: 'icomoon'
   }
 }
 
@@ -48,15 +48,15 @@ body {
 }
  
 :global(::-webkit-scrollbar-track) {
-  background:rgb(200, 200, 200);
+  background:rgb(228, 228, 231);
 }
  
 :global(::-webkit-scrollbar-thumb) {
-  background:rgb(220, 220, 220);
+  background:rgb(214, 214, 219);
 }
 
 :global(::-webkit-scrollbar-corner) {
-  background:rgb(200, 200, 200);
+  background:rgb(228, 228, 231);
 }
 
 .nohighlight {
@@ -64,8 +64,6 @@ body {
 }
 
 *, *:before, *:after {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     position: relative;
 }
@@ -76,26 +74,23 @@ body {
 }
 
 :global(.Resizer) {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     background: transparent;
-    z-index: 1;
-    -moz-background-clip: padding;
-    -webkit-background-clip: padding;
     background-clip: padding-box;
 }
 
 :global(.Resizer:hover) {
-    -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
 }
 
 :global(.Resizer.vertical) {
     width: 4px;
+    position: absolute;
     padding: 4px;
-    background-color: #aaa;
+    background-color: rgba(255, 255, 255, 0);
     cursor: col-resize;
+    height: 100%;
+    z-index: 1;
 }
 
 :global(.Resizer.vertical:hover) {
@@ -105,3 +100,4 @@ body {
 :global(.Resizer.vertical:active) {
     background: rgba(95, 179, 179, 0.6);
 }
+

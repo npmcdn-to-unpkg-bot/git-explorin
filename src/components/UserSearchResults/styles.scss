@@ -11,18 +11,21 @@
   margin: 0.5em 2em;
   transform:rotate3d(0, 1, 0, 0);
   transition:box-shadow 0.1s linear;
-  max-width:160px;
-  min-width: 160px;
-  min-height: 160px;
+  max-width:120px;
+  min-width: 120px;
+  min-height: 120px;
   border-radius: 2%;
-  & > img, & > p {
+  & > a {
+    text-decoration: none
+  }
+  & > a > img, & > p {
     width: 100%;
     border-radius: 2%;
   }
-  & > img {
+  & > a > img {
     opacity: 0;
   }
-  & > p {
+  & > a > p {
     text-align: center;
     color:#666;
   }
@@ -35,7 +38,7 @@
   background-color: #fff;
   transform:rotate3d(0, 1, 0, 720deg);
   opacity: 1 !important;
-  & > img {
+  & > a > img {
     transition: opacity 0.5s;
     transition-timing-function:ease-in;
     transition-delay:0.5s;

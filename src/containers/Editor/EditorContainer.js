@@ -1,25 +1,47 @@
 import React, { Component, PropTypes } from 'react'
+import { Sidebar, Tabs, File, Footer, TopMenu } from 'components'
+import SplitPane from 'react-split-pane'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { EditorActionCreators } from 'actions'
-import { Sidebar, Tabs, File, Footer } from 'components'
 import { container, loading, loaded } from './styles.scss'
-import SplitPane from 'react-split-pane'
 
 class EditorContainer extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
       width: {
         primary: ((window.innerWidth / 100) * 30) - 4,
         secondary: ((window.innerWidth / 100) * 70) - 4,
-      }
+      },
+      repository: {}
     }
   }
 
   componentDidMount = () => {
     window.addEventListener('resize', this.handleWindowResize);
-    this.props.fetchRepo(this.props.params)
+    this.handleFetchRepo(this.props.params)
+  }
+
+  componentWillReceiveProps = (next, prev) => {
+    if(!_.isEqual(next.params, this.state.repository)) {
+      this.setState({
+        ...this.state,
+        repository:next.params
+      }, () => {
+        console.log("fetching")
+        this.handleFetchRepo(this.props.params)
+      })
+    }
+  }
+
+  handleFetchRepo = (params) => {
+    this.props.fetchRepo(params)
+  }
+
+  handleBranchChange = (branch) => {
+    this.context.router.push(`/${this.props.params.username}/${this.props.params.repo}/${branch.value}`)
+    this.handleFetchRepo({ ...this.props.params, splat:branch.value })
   }
 
   handleWindowResize = () => {
@@ -58,11 +80,12 @@ class EditorContainer extends Component {
   render () {
     return (
       <div className={this.props.repoLoading ? loading : loaded}>
+        <TopMenu />
         <div className={container}>
-          <SplitPane defaultSize="30%" split="vertical" onChange={this.handleWindowPaneResize}>
+          <SplitPane defaultSize={'30%'} split={'vertical'} onChange={this.handleWindowPaneResize}>
             <div>
               <Sidebar
-                repo={this.props.params.repo}
+                params={this.props.params}
                 active={this.props.active}
                 current={this.props.current}
                 files={this.props.files}
@@ -78,11 +101,16 @@ class EditorContainer extends Component {
                 size={this.state.width}/>
               <File
                 current={this.props.current}
-                fileLoading={this.props.fileLoading} />
+                fileLoading={this.props.fileLoading}
+                size={this.state.width}/>
             </div>
           </SplitPane>
         </div>
-        <Footer />
+        <Footer
+          handleBranchChange={this.handleBranchChange}
+          branches={['master', 'development', 'my-feature']}
+          current={this.props.current}
+          params={this.props.params} />
 
       </div>
     )
@@ -100,6 +128,10 @@ EditorContainer.propTypes = {
   addActive: PropTypes.func.isRequired,
   setActive: PropTypes.func.isRequired,
   setInactive: PropTypes.func.isRequired,
+}
+
+EditorContainer.contextTypes = {
+  router: PropTypes.object.isRequired,
 }
 
 export default connect(

@@ -1,7 +1,4 @@
-import {
-  GithubFileAPI,
-  GithubRepoAPI,
-} from 'api'
+import { GithubFileAPI, GithubRepoAPI, } from 'api'
 
 import _ from 'lodash'
 
@@ -34,35 +31,33 @@ const setFileAsCurrent = (file) => ({
   file
 })
 
-export const fetchRepo = ({ username, repo, branch }) => (dispatch) => {
+export const fetchRepo = ({ username, repo, splat }) => (dispatch) => {
   dispatch(repositoryLoading(true))
-  return GithubRepoAPI.fetchRepoDir(username, repo, branch)
+  return GithubRepoAPI.fetchRepoDir(username, repo, splat)
     .then((files) => {
       dispatch(repositoryLoaded(files))
     })
-    .catch((err) => console.error(err))
-}
-
-export const fetchFile = (file) => (dispatch) => {
-  let filepath = file.path.split('.')
-  return GithubFileAPI.fetchFileSource(file)
-    .then(({ data }) => {
-      dispatch(setFileAsCurrent({
-        ...file,
-        source: data,
-        extension: filepath[filepath.length - 1],
-      }))
-      dispatch(fileLoading(false))
-    })
-    .catch(() => dispatch(fileLoading(false)))
+    .catch((err) => console.log(err.status))
 }
 
 export const setActive = (file) => (dispatch, getState) => {
   let { active, current } = getState().Editor
+  let filepath = file.path.split('.')
   if (current.path === file.path) return
+
   dispatch(fileLoading(true))
-  dispatch(setFileAsActive({ ...active, [file.path]: file }))
-  dispatch(fetchFile(file))
+  return GithubFileAPI.fetchFileSource(file)
+    .then(({ data }) => dispatch([
+      fileLoading(false),
+      setFileAsActive({ ...active, [file.path]: file }),
+      setFileAsCurrent({
+        ...file,
+        source: data,
+        extension: filepath[filepath.length - 1],
+      }),
+    ]))
+    .catch((err) => err)
+  
 }
 
 export const addActive = (file) => (dispatch, getState) => {
@@ -71,14 +66,17 @@ export const addActive = (file) => (dispatch, getState) => {
 }
 
 export const setInactive = (file) => (dispatch, getState) => {
-  dispatch(fileLoading(true))
   let { active, current } = getState().Editor
   active = _.omit(active, [file.path])
-  dispatch(setFileAsInactive(active))
-  if (file.path !== current.path) return dispatch(fileLoading(false))
-  else if (_.keys(active).length >= 1) dispatch(fetchFile(active[_.keys(active)[0]]))
-  else {
-    dispatch(setFileAsCurrent({ source: '', path: '', extension: '' }))
-    dispatch(fileLoading(false))
-  }
+  dispatch([
+    fileLoading(true),
+    setFileAsInactive(active)
+  ])
+  
+  if (file.path !== current.path) dispatch(fileLoading(false))
+  else if (_.keys(active).length >= 1) dispatch(setActive(active[_.keys(active)[0]]))
+  else dispatch([
+    fileLoading(false),
+    setFileAsCurrent({ source: '', path: '', extension: '' })
+  ])
 }
