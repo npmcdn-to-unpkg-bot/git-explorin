@@ -14,7 +14,9 @@ class EditorContainer extends Component {
         primary: ((window.innerWidth / 100) * 30),
         secondary: ((window.innerWidth / 100) * 70),
       },
-      repository: {}
+      repository: {
+        ...props.params
+      }
     }
   }
 
@@ -29,6 +31,7 @@ class EditorContainer extends Component {
         ...this.state,
         repository:next.params
       }, () => {
+        console.log("fetching")
         this.handleFetchRepo(this.props.params)
       })
     }
