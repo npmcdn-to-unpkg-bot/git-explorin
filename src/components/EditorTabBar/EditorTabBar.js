@@ -5,7 +5,7 @@ import { tabs, wrapper } from './styles.scss'
 const EditorTabBar = (props) => {
   let files = Object.keys(props.active)
   return (
-      <div className={wrapper} style={{maxWidth:props.size.secondary, minWidth:'100%'}}>
+      <div className={wrapper} style={{maxWidth:props.size.secondary, width: props.size.secondary, minWidth:'100%'}}>
         <ul className={tabs}>
           
           {

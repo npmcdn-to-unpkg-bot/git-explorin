@@ -475,6 +475,9 @@
   font-size: 0.45em;
   padding: 0.1em;
 }
+.markdownBody img[src='Error.src'] {
+  background:green;
+}
 
 .markdownBody code {
   padding: 0;

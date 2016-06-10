@@ -11,8 +11,8 @@ class EditorContainer extends Component {
     super(props)
     this.state = {
       width: {
-        primary: ((window.innerWidth / 100) * 30) - 4,
-        secondary: ((window.innerWidth / 100) * 70) - 4,
+        primary: ((window.innerWidth / 100) * 30),
+        secondary: ((window.innerWidth / 100) * 70),
       },
       repository: {}
     }
@@ -46,8 +46,8 @@ class EditorContainer extends Component {
   handleWindowResize = () => {
     this.setState({
       width: {
-        primary: ((window.innerWidth / 100) * 30) - 4,
-        secondary: ((window.innerWidth / 100) * 70) - 4,
+        primary: ((window.innerWidth / 100) * 30),
+        secondary: ((window.innerWidth / 100) * 70),
       }
     })
   }
@@ -56,8 +56,8 @@ class EditorContainer extends Component {
     this.setState({
       ...this.state,
       width: {
-        primary: size - 4,
-        secondary: (window.innerWidth - size) - 4,
+        primary: size,
+        secondary: (window.innerWidth - size),
       }
     })
   }
