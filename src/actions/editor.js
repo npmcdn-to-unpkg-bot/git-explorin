@@ -1,14 +1,15 @@
 import { GithubFileAPI, GithubRepoAPI, } from 'api'
-
+import axios from 'axios'
 import _ from 'lodash'
 
 const repositoryLoading = () => ({
   type: 'REPOSITORY_LOADING',
 })
 
-const repositoryLoaded = (files) => ({
+const repositoryLoaded = (files, branches) => ({
   type: 'REPOSITORY_LOADED',
   files,
+  branches,
 })
 
 const fileLoading = (status) => ({
@@ -33,15 +34,18 @@ const setFileAsCurrent = (file) => ({
 
 export const fetchRepo = ({ username, repo, splat }) => (dispatch) => {
   dispatch(repositoryLoading(true))
-  return GithubRepoAPI.fetchRepoDir(username, repo, splat)
-    .then((files) => {
-      dispatch(repositoryLoaded(files))
-      return files['README.md']['__ref']
-    })
-    .then((file) => {
-      if(file !== undefined) dispatch(setActive(file))
-    })
-    .catch((err) => console.log(err.status))
+  return axios.all([
+    GithubRepoAPI.fetchRepoDir(username, repo, splat),
+    GithubRepoAPI.fetchRepoBranches(username, repo)
+  ])
+  .then(axios.spread((files, branches) => {
+    dispatch(repositoryLoaded(files, branches))
+    return files['README.md']['__ref']
+  }))
+  .then((file) => {
+    if(file !== undefined) dispatch(setActive(file))
+  })
+  .catch((err) => console.log(err))
 }
 
 export const setActive = (file) => (dispatch, getState) => {

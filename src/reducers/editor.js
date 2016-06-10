@@ -1,5 +1,6 @@
 const initialState = {
   files: {},
+  branches: [],
   active: {},
   current: {
     source: '',
@@ -24,6 +25,7 @@ export default function Editor (state = initialState, action) {
         active: initialState.active,
         repoLoading: false,
         files: action.files,
+        branches: action.branches,
       }
     case 'FILE_LOADING' :
       return {

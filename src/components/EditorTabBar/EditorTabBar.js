@@ -7,7 +7,6 @@ const EditorTabBar = (props) => {
   return (
       <div className={wrapper} style={{maxWidth:props.size.secondary, width: props.size.secondary, minWidth:'100%'}}>
         <ul className={tabs}>
-          
           {
             files.map((file, idx) => {
               let filename = file.split('/')

@@ -1,7 +1,7 @@
 import React from 'react'
 import { header, avatar, basic, name } from './styles.scss'
 
-function Header (props) {
+function ProfileHeader (props) {
   return (
     <div className={header}>
 
@@ -13,4 +13,4 @@ function Header (props) {
   )
 }
 
-export default Header
+export default ProfileHeader

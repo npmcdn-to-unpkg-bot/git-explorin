@@ -7,8 +7,8 @@ const EditorDirectoryFile = (props) => {
   return (
     <li
       className={status}
-      onClick={props.handleSetActive}
-      data-file={props.file.path}>
+      data-file={props.file.path}
+      onClick={props.handleSetActive}>
       {props.children || ''}
       {filename[filename.length - 1]}
     </li>

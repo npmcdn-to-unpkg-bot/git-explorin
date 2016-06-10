@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Header } from 'components'
+import { ProfileHeader } from 'components'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { UserActionCreators } from 'actions'
@@ -26,7 +26,7 @@ class ProfileContainer extends Component {
   render () {
     return (
       <div>
-        <Header
+        <ProfileHeader
           loading={this.state.loading}
           name={this.state.profile.name}
           login={this.state.profile.login}

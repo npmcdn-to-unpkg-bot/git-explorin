@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { EditorSidebar, EditorFooter, EditorTabBar, EditorFile, TopMenu } from 'components'
+import { EditorSidebar, EditorFooter, EditorTabBar, EditorFile, EditorTopMenu } from 'components'
 import SplitPane from 'react-split-pane'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -79,7 +79,7 @@ class EditorContainer extends Component {
   render () {
     return (
       <div className={this.props.repoLoading ? loading : loaded}>
-        <TopMenu />
+        <EditorTopMenu />
         <div className={container}>
           <SplitPane defaultSize={'30%'} split={'vertical'} onChange={this.handleWindowPaneResize}>
             <div>

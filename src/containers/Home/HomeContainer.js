@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { GithubSearch, UserSearchResults, HomeHero } from 'components'
+import { GithubSearch, GithubSearchResults, HomeHero } from 'components'
 import { Link } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -22,7 +22,7 @@ class HomeContainer extends Component {
         <div className={main}>
           {
             this.props.location.query.q !== undefined
-            ? <UserSearchResults query={this.props.location.query.q} results={this.props.users} />
+            ? <GithubSearchResults query={this.props.location.query.q} results={this.props.users} />
             : <HomeHero />
           }
         </div>
