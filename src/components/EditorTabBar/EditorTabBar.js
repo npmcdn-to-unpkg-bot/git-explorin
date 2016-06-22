@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react'
 import { EditorTab } from 'components'
-import { tabs, wrapper } from './styles.scss'
+import { tabs, btn, active } from './styles.scss'
 
 const EditorTabBar = (props) => {
   let files = Object.keys(props.active)
   return (
-      <div className={wrapper} style={{maxWidth:props.size.secondary, width: props.size.secondary, minWidth:'100%'}}>
+      <div style={{maxWidth: props.size.secondary, width: props.size.secondary, minWidth: '100%'}}>
+        <div className={`${btn} ${props.isSidebarActive ? active : null}`} onClick={props.handleSidebarToggle}></div>
         <ul className={tabs}>
           {
             files.map((file, idx) => {
@@ -30,8 +31,11 @@ const EditorTabBar = (props) => {
 EditorTabBar.propTypes = {
   handleSetActive: PropTypes.func.isRequired,
   handleSetInactive: PropTypes.func.isRequired,
+  handleSidebarToggle: PropTypes.func.isRequired,
+  isSidebarActive: PropTypes.bool.isRequired,
   active: PropTypes.object.isRequired,
   current: PropTypes.object.isRequired,
+  size: PropTypes.object.isRequired,
 }
 
 export default EditorTabBar

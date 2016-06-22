@@ -17,7 +17,7 @@ const GithubSearchResults = (props) => {
             <li id={result.login} className={item} key={result.login}>
               <Link to={`/${result.login}`} >
                 <p>{result.login}</p>
-                <img alt={result.login} src={result.avatar_url}/>
+                <img alt={result.login} src={result.avatar_url} />
               </Link>
             </li>
           )

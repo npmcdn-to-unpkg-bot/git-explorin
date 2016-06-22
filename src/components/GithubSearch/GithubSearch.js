@@ -2,7 +2,6 @@ import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { UserActionCreators } from 'actions'
-import { SearchResults } from 'components'
 import { container, search } from './styles.scss'
 let debounceSearch = false
 
@@ -12,7 +11,7 @@ class GithubSearch extends Component {
     super(props)
 
     this.state = {
-      query: props.query || ''
+      query: props.query || '',
     }
   }
 
@@ -23,7 +22,7 @@ class GithubSearch extends Component {
   componentWillReceiveProps = (nextProps, prevProps) => {
     this.setState({
       ...this.state,
-      query: nextProps.query || ''
+      query: nextProps.query || '',
     }, () => this.props.handleQuery(this.state.query))
   }
 
@@ -36,7 +35,7 @@ class GithubSearch extends Component {
 
     this.setState({
       ...this.state,
-      query: e.target.value
+      query: e.target.value,
     })
 
     if (debounceSearch !== false) clearTimeout(debounceSearch)
@@ -47,8 +46,8 @@ class GithubSearch extends Component {
         this.context.router.push({
           pathname: '/',
           query: {
-            q : e.target.value
-          }
+            q: e.target.value,
+          },
         })
       }
     }, 800)
@@ -69,6 +68,8 @@ class GithubSearch extends Component {
 
 GithubSearch.propTypes = {
   searchUsers: PropTypes.func.isRequired,
+  handleQuery: PropTypes.func.isRequired,
+  query: PropTypes.string,
 }
 
 GithubSearch.contextTypes = {

@@ -33,6 +33,7 @@ const EditorFile = ({ fileLoading, size, current: { extension, source, path } })
 
 EditorFile.propTypes = {
   current: PropTypes.object.isRequired,
+  size: PropTypes.object.isRequired,
   fileLoading: PropTypes.bool.isRequired,
 }
 

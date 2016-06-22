@@ -9,3 +9,21 @@
   background-color:#474752;
   z-index: 2;
 }
+
+.btn {
+  position: absolute;
+  z-index: 1000;
+  top: -0px;
+  left:-48px;
+  padding:1.5em 0.75em;
+  transition:transform 0.25s linear 0.25s;
+  cursor: pointer;
+  &::before {
+    color: #777788;
+    content: '\ea42';
+  }
+  &.active {
+    transform:rotateZ(540deg);
+    left:-60px;
+  }
+}

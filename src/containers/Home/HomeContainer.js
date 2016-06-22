@@ -7,7 +7,7 @@ import { UserActionCreators } from 'actions'
 import { container, header, title, main, footer } from './styles.scss'
 
 class HomeContainer extends Component {
-  
+
   handleQuery = (query) => {
     this.props.searchUsers(query)
   }
@@ -17,7 +17,7 @@ class HomeContainer extends Component {
       <div className={container}>
         <div className={header}>
           <Link to='/' className={title}>{'GitExplorin\''}</Link>
-          <GithubSearch handleQuery={this.handleQuery} query={this.props.location.query.q}/>
+          <GithubSearch handleQuery={this.handleQuery} query={this.props.location.query.q} />
         </div>
         <div className={main}>
           {
@@ -34,6 +34,12 @@ class HomeContainer extends Component {
 
 HomeContainer.contextTypes = {
   router: PropTypes.object.isRequired,
+}
+
+HomeContainer.propTypes = {
+  location: PropTypes.object,
+  users: PropTypes.array,
+  searchUsers: PropTypes.func.isRequired,
 }
 
 export default connect(

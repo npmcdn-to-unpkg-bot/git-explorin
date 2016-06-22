@@ -5,14 +5,13 @@ import hljs from 'highlight.js'
 import { container, markdownBody } from './styles.scss'
 
 class SourceFile extends Component {
-
   constructor () {
     super()
     this.state = {
       currentPath: '',
       changed: false,
       source: '',
-      ext: 'accesslog'
+      ext: 'accesslog',
     }
   }
 
@@ -38,7 +37,6 @@ class SourceFile extends Component {
         \n\n:(`,
         ext: 'accesslog',
       })
-
     } else if (nextProps.path !== this.state.currentPath) {
       this.setState({
         ...this.state,
@@ -75,7 +73,7 @@ class SourceFile extends Component {
   }
 
   render () {
-    return this.state.ext === 'md' 
+    return this.state.ext === 'md'
     ? (
         <div className={container}>
           <div className={markdownBody}>

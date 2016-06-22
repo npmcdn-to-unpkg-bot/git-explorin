@@ -1,5 +1,5 @@
-import React from 'react'
-import { header, avatar, basic, name } from './styles.scss'
+import React, { PropTypes } from 'react'
+import { header, basic, name } from './styles.scss'
 
 function ProfileHeader (props) {
   return (
@@ -7,10 +7,16 @@ function ProfileHeader (props) {
 
       <div className={basic}>
         <p className={name}>{props.name || ''}</p>
-        <p>{props.loading ? '' : `@${props.login}` }</p>
+        <p>{props.loading ? '' : `@${props.login}`}</p>
       </div>
     </div>
   )
+}
+
+ProfileHeader.propTypes = {
+  name: PropTypes.string.isRequired,
+  login: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired,
 }
 
 export default ProfileHeader
