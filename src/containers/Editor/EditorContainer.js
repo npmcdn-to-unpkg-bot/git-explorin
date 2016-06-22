@@ -4,7 +4,8 @@ import SplitPane from 'react-split-pane'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { EditorActionCreators } from 'actions'
-import { container, loading, loaded } from './styles.scss'
+import { isEqual } from 'lodash'
+import { container, loading, loaded, sidebar, active } from './styles.scss'
 
 class EditorContainer extends Component {
   constructor (props) {
@@ -15,23 +16,25 @@ class EditorContainer extends Component {
         secondary: ((window.innerWidth / 100) * 70),
       },
       repository: {
-        ...props.params
-      }
+        ...props.params,
+      },
+      sidebarActive: true,
     }
   }
 
   componentDidMount = () => {
-    window.addEventListener('resize', this.handleWindowResize);
+    window.addEventListener('resize', this.handleWindowResize)
     this.handleFetchRepo(this.props.params)
   }
 
   componentWillReceiveProps = (next, prev) => {
-    if(!_.isEqual(next.params, this.state.repository)) {
+    if (this.props.repoLoading) return
+    else if (!isEqual(next.params, this.state.repository)) {
       this.setState({
         ...this.state,
-        repository:next.params
+        repository: next.params,
       }, () => {
-        console.log("fetching")
+        this.handleSidebarToggle(true)
         this.handleFetchRepo(this.props.params)
       })
     }
@@ -43,7 +46,10 @@ class EditorContainer extends Component {
 
   handleBranchChange = (branch) => {
     this.context.router.push(`/${this.props.params.username}/${this.props.params.repo}/${branch.value}`)
-    this.handleFetchRepo({ ...this.props.params, splat:branch.value })
+    this.handleFetchRepo({
+      ...this.props.params,
+      splat: branch.value,
+    })
   }
 
   handleWindowResize = () => {
@@ -51,17 +57,18 @@ class EditorContainer extends Component {
       width: {
         primary: ((window.innerWidth / 100) * 30),
         secondary: ((window.innerWidth / 100) * 70),
-      }
+      },
     })
   }
 
   handleWindowPaneResize = (size) => {
     this.setState({
       ...this.state,
+      sidebarActive: true,
       width: {
         primary: size,
         secondary: (window.innerWidth - size),
-      }
+      },
     })
   }
 
@@ -79,13 +86,35 @@ class EditorContainer extends Component {
     this.props.setInactive(this.props.active[e.target.parentNode.getAttribute('data-file')])
   }
 
+  handleSidebarToggle = (status) => {
+    const Container = this.refs.splitPane
+    const Pane = Container.refs.pane1
+    let size = !this.state.sidebarActive ? '30%' : 40
+    size = status === true ? '30%' : size
+    this.setState({
+      ...this.state,
+      sidebarActive: status === true ? true : !this.state.sidebarActive,
+    }, () => {
+      Container.setState({
+        draggedSize: size,
+      })
+      Pane.setState({
+        size: size,
+      })
+    })
+  }
+
   render () {
     return (
       <div className={this.props.repoLoading ? loading : loaded}>
         <EditorTopMenu />
         <div className={container}>
-          <SplitPane defaultSize={'30%'} split={'vertical'} onChange={this.handleWindowPaneResize}>
-            <div>
+          <SplitPane
+            ref={'splitPane'}
+            split={'vertical'}
+            defaultSize={'30%'}
+            onChange={this.handleWindowPaneResize}>
+            <div className={`${sidebar} ${this.state.sidebarActive ? null : active}`}>
               <EditorSidebar
                 params={this.props.params}
                 active={this.props.active}
@@ -100,20 +129,20 @@ class EditorContainer extends Component {
                 current={this.props.current}
                 handleSetActive={this.handleSetActive}
                 handleSetInactive={this.handleSetInactive}
-                size={this.state.width}/>
+                handleSidebarToggle={this.handleSidebarToggle}
+                isSidebarActive={this.state.sidebarActive}
+                size={this.state.width} />
               <EditorFile
                 current={this.props.current}
                 fileLoading={this.props.fileLoading}
-                size={this.state.width}/>
+                size={this.state.width} />
             </div>
           </SplitPane>
         </div>
         <EditorFooter
           handleBranchChange={this.handleBranchChange}
-          branches={['master', 'development', 'my-feature']}
           current={this.props.current}
           params={this.props.params} />
-
       </div>
     )
   }

@@ -1,12 +1,18 @@
-import React, { Component } from 'react'
+import React, { PropTypes } from 'react'
 import Dropdown from 'react-dropdown'
 import { connect } from 'react-redux'
-import { container, selectLabel } from './styles.scss'
+import './styles.scss'
 
 const EditorBranchDropdown = (props) => {
   return (
-    <Dropdown options={props.branches} value={props.params.splat} onChange={props.handleBranchChange}/>
+    <Dropdown options={props.branches} value={props.params.splat} onChange={props.handleBranchChange} />
   )
+}
+
+EditorBranchDropdown.propTypes = {
+  params: PropTypes.object.isRequired,
+  branches: PropTypes.array.isRequired,
+  handleBranchChange: PropTypes.func.isRequired,
 }
 
 export default connect(

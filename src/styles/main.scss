@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Lato:400,700,300);
+@import url(https://fonts.googleapis.com/css?family=Lato:400);
 @import url(../assets/fonts/icomoon/style.scss);
 
 html {
@@ -7,7 +7,8 @@ html {
 
 body {
   margin: 0 auto;
-  min-width: 760px;
+  // min-width: 760px;
+  max-height: 100vh;
   font-family: 'Lato';
   font-weight: 400;
 }
@@ -45,6 +46,7 @@ body {
 
 :global(::-webkit-scrollbar) {
   width: 12px;
+  height: 12px;
 }
  
 :global(::-webkit-scrollbar-track) {
@@ -101,3 +103,6 @@ body {
     background: rgba(95, 179, 179, 0.6);
 }
 
+:global(.Pane.vertical.Pane1) {
+  transition:all 0.25s cubic-bezier(0,1,0,0.9);
+}

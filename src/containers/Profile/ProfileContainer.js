@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { ProfileHeader } from 'components'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -31,10 +31,14 @@ class ProfileContainer extends Component {
           name={this.state.profile.name}
           login={this.state.profile.login}
           avatar={this.state.profile.avatar_url} />
-
       </div>
     )
   }
+}
+
+ProfileContainer.propTypes = {
+  params: PropTypes.object.isRequired,
+  fetchUser: PropTypes.func.isRequired,
 }
 
 export default connect(

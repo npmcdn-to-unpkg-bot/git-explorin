@@ -1,11 +1,11 @@
 const initialState = {
-  usersLoading:false,
-  profileLoading:true,
-  users:[],
+  usersLoading: false,
+  profileLoading: true,
+  users: [],
 }
 
 const Users = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'USERS_LOADING':
       return {
         ...state,

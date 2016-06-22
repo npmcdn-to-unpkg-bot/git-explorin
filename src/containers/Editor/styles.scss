@@ -20,6 +20,20 @@
   opacity: 1;
 }
 
-:global(.Pane2) {
-  right: 8px;
+.sidebar {
+  &::before {
+    content: '';
+    background: #54545F;
+  }
+  &.active {
+    &::before {
+      content: '';
+      min-width: 40px;
+      min-height: 100vh;
+      background: #34343C;
+      z-index: 100;
+      display: block;
+      transition:all 0.2s linear;
+    }
+  }
 }

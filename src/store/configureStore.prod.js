@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware } from 'redux'
-import { batch, batching } from 'redux-batch-middleware';
+import { batch, batching } from 'redux-batch-middleware'
 import thunk from 'redux-thunk'
 import rootReducer from '../reducers'
 

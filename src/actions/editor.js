@@ -1,5 +1,5 @@
-import { GithubFileAPI, GithubRepoAPI, } from 'api'
-import axios from 'axios'
+import { GithubFileAPI, GithubRepoAPI } from 'api'
+import { all, spread } from 'axios'
 import _ from 'lodash'
 
 const repositoryLoading = () => ({
@@ -19,33 +19,29 @@ const fileLoading = (status) => ({
 
 const setFileAsActive = (active) => ({
   type: 'SET_FILE_AS_ACTIVE',
-  active
+  active,
 })
 
 const setFileAsInactive = (active) => ({
   type: 'SET_FILE_AS_INACTIVE',
-  active
+  active,
 })
 
 const setFileAsCurrent = (file) => ({
   type: 'SET_FILE_AS_CURRENT',
-  file
+  file,
 })
 
 export const fetchRepo = ({ username, repo, splat }) => (dispatch) => {
   dispatch(repositoryLoading(true))
-  return axios.all([
+  return all([
     GithubRepoAPI.fetchRepoDir(username, repo, splat),
-    GithubRepoAPI.fetchRepoBranches(username, repo)
+    GithubRepoAPI.fetchRepoBranches(username, repo),
   ])
-  .then(axios.spread((files, branches) => {
+  .then(spread((files, branches) => {
     dispatch(repositoryLoaded(files, branches))
-    return files['README.md']['__ref']
   }))
-  .then((file) => {
-    if(file !== undefined) dispatch(setActive(file))
-  })
-  .catch((err) => console.log(err))
+  .catch((err) => err)
 }
 
 export const setActive = (file) => (dispatch, getState) => {
@@ -65,7 +61,6 @@ export const setActive = (file) => (dispatch, getState) => {
       }),
     ]))
     .catch((err) => err)
-  
 }
 
 export const addActive = (file) => (dispatch, getState) => {
@@ -78,13 +73,15 @@ export const setInactive = (file) => (dispatch, getState) => {
   active = _.omit(active, [file.path])
   dispatch([
     fileLoading(true),
-    setFileAsInactive(active)
+    setFileAsInactive(active),
   ])
-  
+
   if (file.path !== current.path) dispatch(fileLoading(false))
   else if (_.keys(active).length >= 1) dispatch(setActive(active[_.keys(active)[0]]))
-  else dispatch([
-    fileLoading(false),
-    setFileAsCurrent({ source: '', path: '', extension: '' })
-  ])
+  else {
+    dispatch([
+      fileLoading(false),
+      setFileAsCurrent({ source: '', path: '', extension: '' }),
+    ])
+  }
 }

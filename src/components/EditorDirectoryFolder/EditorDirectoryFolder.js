@@ -10,13 +10,37 @@ class EditorDirectoryFolder extends Component {
 
     this.state = {
       rendered: false,
-      repository: props.params || {}
+      repository: props.params || {},
     }
   }
 
-  toggleFolder = (e) => {
-    e.target.className = e.target.className === folderLink ? folderLinkActive : folderLink
-    e.target.parentElement.className = e.target.parentElement.className === folder ? folderActive : folder
+  shouldComponentUpdate = (nextProps, nextState) => {
+    if (nextState.rendered === false) {
+      this.setState({
+        ...this.state,
+        rendered: true,
+      })
+      return true
+    } else if (!_.isEqual(this.state.repository, nextProps.params)) {
+      this.setState({
+        ...this.state,
+        repository: { ... nextProps.params },
+      }, () => {
+        let root = document.getElementById('root')
+        root.className = folderActive
+        root.firstChild.className = folderLinkActive
+        let active = [...document.querySelectorAll(`li.${folderLinkActive.split(' ')[0]}`)]
+        active.map((el) => {
+          if (el.parentElement.id !== 'root') {
+            el.className = folderLink
+            el.parentElement.className = folder
+          }
+        })
+      })
+      return true
+    } else {
+      return false
+    }
   }
 
   sortCurrentDirectory = () => {
@@ -29,34 +53,9 @@ class EditorDirectoryFolder extends Component {
     })
   }
 
-  shouldComponentUpdate = (nextProps, nextState) => {
-    if(nextState.rendered === false) {
-      this.setState({
-        ...this.state,
-        rendered:true
-      })
-      return true
-    } else if (!_.isEqual(this.state.repository, nextProps.params)) {
-      this.setState({
-        ...this.state,
-        repository: { ... nextProps.params }
-      }, () => {
-        let root = document.getElementById('root');
-        root.className = folderActive
-        root.firstChild.className = folderLinkActive
-        let active = [...document.querySelectorAll(`li.${folderLinkActive.split(" ")[0]}`)]
-        active.map((el) => {
-          if (el.parentElement.id !== 'root') {
-            el.className = folderLink
-            el.parentElement.className = folder  
-          }
-        })
-        
-      })
-      return true
-    } else {
-      return false
-    }
+  toggleFolder = (e) => {
+    e.target.className = e.target.className === folderLink ? folderLinkActive : folderLink
+    e.target.parentElement.className = e.target.parentElement.className === folder ? folderActive : folder
   }
 
   render () {
@@ -93,6 +92,7 @@ class EditorDirectoryFolder extends Component {
 
 EditorDirectoryFolder.propTypes = {
   files: PropTypes.object.isRequired,
+  params: PropTypes.object.isRequired,
   isRoot: PropTypes.bool,
   children: PropTypes.string,
   current: PropTypes.object.isRequired,

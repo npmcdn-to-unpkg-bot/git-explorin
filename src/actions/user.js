@@ -9,21 +9,12 @@ const usersLoaded = (users = []) => ({
   users,
 })
 
-const profileLoading = () => ({
-  type: 'PROFILE_LOADING'
-})
-
-const profileLoaded = (user) => ({
-  type: 'PROFILE_LOADED',
-  user,
-})
-
 export const searchUsers = (query) => (dispatch) => {
-  if(query.length === 0) return dispatch(usersLoaded())
+  if (query.length === 0) return dispatch(usersLoaded())
   else dispatch(usersLoading())
   return GithubUserAPI.queryUsers(query)
-    .then(({ data: { items }}) => dispatch(usersLoaded(items)))
-    .catch((err) => dispatch(usersLoaded()))
+    .then(({ data: { items } }) => dispatch(usersLoaded(items)))
+    .catch(() => dispatch(usersLoaded()))
 }
 
 export const fetchUser = (username) => (dispatch) => {
