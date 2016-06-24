@@ -111,7 +111,3 @@ body {
 :global(.Resizer.vertical:active) {
     border-left-color: rgba(95, 179, 179, 0.6) !important;
 }
-
-:global(.Pane.vertical.Pane1) {
-  transition:all 0.25s cubic-bezier(0,1,0,0.9);
-}
