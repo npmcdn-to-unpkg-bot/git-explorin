@@ -82,16 +82,18 @@ body {
 }
 
 :global(.Resizer:hover) {
-    transition: all 0.2s ease;
+    transition: all 0.4s ease 0.2s;
+    cursor: col-resize;
 }
 
 :global(.Resizer.vertical) {
-    width: 4px;
+    width: 0px;
     height: 100%;
     position: absolute;
-    padding: 4px;
-    background-color: #fbfcfc;
-    cursor: col-resize;
+    padding: 2.5px;
+    background-color: transparent;
+    border-left: 5px solid transparent;
+    border-right: 3.5px solid transparent;
     top: 65px;
     z-index: 1;
 }
@@ -100,17 +102,14 @@ body {
   :global(.Resizer.vertical) {
     display:none;
   }
-  // :global(.Pane.vertical.Pane1) {
-  //   width:100vw !important;
-  // }
 }
 
 :global(.Resizer.vertical:hover) {
-  background: rgba(95, 179, 179, 1);
+  border-left-color: rgba(95, 179, 179, 1) !important;
 }
 
 :global(.Resizer.vertical:active) {
-    background: rgba(95, 179, 179, 0.6);
+    border-left-color: rgba(95, 179, 179, 0.6) !important;
 }
 
 :global(.Pane.vertical.Pane1) {
