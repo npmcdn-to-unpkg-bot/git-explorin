@@ -59,11 +59,12 @@ class EditorDirectoryFolder extends Component {
   }
 
   render () {
+    let dir = this.sortCurrentDirectory()
     return (
       <ul id={this.props.isRoot === true ? 'root' : 'sub'} className={this.props.isRoot === true ? folderActive : folder}>
         <li className={this.props.isRoot === true ? folderLinkActive : folderLink} onClick={this.toggleFolder}>{this.props.children}</li>
         {
-          this.sortCurrentDirectory().map((name, idx) => {
+          dir.map((name, idx) => {
             if (name === '__ref') return null
             return this.props.files[name].__ref.type === 'blob'
               ? (

@@ -95,6 +95,15 @@ body {
     z-index: 1;
 }
 
+@media screen and (max-width: 600px) {
+  :global(.Resizer.vertical) {
+    display:none;
+  }
+  // :global(.Pane.vertical.Pane1) {
+  //   width:100vw !important;
+  // }
+}
+
 :global(.Resizer.vertical:hover) {
   background: rgba(95, 179, 179, 1);
 }

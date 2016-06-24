@@ -7,9 +7,7 @@ export const fetchRepoDir = (user, repo, branch) => {
   return new Promise((resolve, reject) => {
     get(`https://api.github.com/repos/${user}/${repo}/git/trees/${branch}?recursive=1&${credentials}`)
       .then(({data}) => data.tree.map((item) => set(directory, item.path.split('/').concat(['__ref']), item)))
-      .then(() => {
-        resolve(directory)
-      })
+      .then(() => resolve(directory))
       .catch((err) => reject(err))
   })
 }

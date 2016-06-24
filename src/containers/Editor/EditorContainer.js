@@ -14,11 +14,13 @@ class EditorContainer extends Component {
       width: {
         primary: ((window.innerWidth / 100) * 30),
         secondary: ((window.innerWidth / 100) * 70),
+        default: window.innerWidth > '600' ? '30%' : '100%',
       },
       repository: {
         ...props.params,
       },
       sidebarActive: true,
+      loading: true,
     }
   }
 
@@ -28,14 +30,16 @@ class EditorContainer extends Component {
   }
 
   componentWillReceiveProps = (next, prev) => {
-    if (this.props.repoLoading) return
-    else if (!isEqual(next.params, this.state.repository)) {
+    if (!isEqual(next.params, this.state.repository)) {
       this.setState({
         ...this.state,
         repository: next.params,
-      }, () => {
-        this.handleSidebarToggle(true)
-        this.handleFetchRepo(this.props.params)
+        loading: true,
+      }, () => this.props.fetchRepo(this.state.repository))
+    } else {
+      this.setState({
+        ...this.state,
+        loading: false,
       })
     }
   }
@@ -46,15 +50,12 @@ class EditorContainer extends Component {
 
   handleBranchChange = (branch) => {
     this.context.router.push(`/${this.props.params.username}/${this.props.params.repo}/${branch.value}`)
-    this.handleFetchRepo({
-      ...this.props.params,
-      splat: branch.value,
-    })
   }
 
   handleWindowResize = () => {
     this.setState({
       width: {
+        ...this.state.width,
         primary: ((window.innerWidth / 100) * 30),
         secondary: ((window.innerWidth / 100) * 70),
       },
@@ -66,6 +67,7 @@ class EditorContainer extends Component {
       ...this.state,
       sidebarActive: true,
       width: {
+        ...this.state.width,
         primary: size,
         secondary: (window.innerWidth - size),
       },
@@ -89,8 +91,8 @@ class EditorContainer extends Component {
   handleSidebarToggle = (status) => {
     const Container = this.refs.splitPane
     const Pane = Container.refs.pane1
-    let size = !this.state.sidebarActive ? '30%' : 40
-    size = status === true ? '30%' : size
+    let size = !this.state.sidebarActive ? this.state.width.default: 40
+    size = status === true ? this.state.width.default : size
     this.setState({
       ...this.state,
       sidebarActive: status === true ? true : !this.state.sidebarActive,
@@ -106,13 +108,13 @@ class EditorContainer extends Component {
 
   render () {
     return (
-      <div className={this.props.repoLoading ? loading : loaded}>
+      <div className={this.state.loading ? loading : loaded}>
         <EditorTopMenu />
         <div className={container}>
           <SplitPane
             ref={'splitPane'}
             split={'vertical'}
-            defaultSize={'30%'}
+            defaultSize={this.state.width.default}
             onChange={this.handleWindowPaneResize}>
             <div className={`${sidebar} ${this.state.sidebarActive ? null : active}`}>
               <EditorSidebar

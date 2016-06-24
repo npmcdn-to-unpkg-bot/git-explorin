@@ -7,25 +7,19 @@ const initialState = {
     path: '',
     extension: '',
   },
-  repoLoading: true,
+  repoLoading: false,
   fileLoading: false,
 }
 
 export default function Editor (state = initialState, action) {
   switch (action.type) {
-    case 'REPOSITORY_LOADING' :
-      return {
-        ...state,
-        repoLoading: true,
-      }
     case 'REPOSITORY_LOADED' :
       return {
         ...state,
-        current: initialState.current,
-        active: initialState.active,
-        repoLoading: false,
         files: action.files,
         branches: action.branches,
+        current: initialState.current,
+        active: initialState.active,
       }
     case 'FILE_LOADING' :
       return {

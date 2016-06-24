@@ -5,7 +5,7 @@ import './styles.scss'
 
 const EditorBranchDropdown = (props) => {
   return (
-    <Dropdown options={props.branches} value={props.params.splat} onChange={props.handleBranchChange} />
+    <Dropdown options={props.branches} value={props.params.branch} onChange={props.handleBranchChange} />
   )
 }
 

@@ -2,9 +2,6 @@ import { GithubFileAPI, GithubRepoAPI } from 'api'
 import { all, spread } from 'axios'
 import _ from 'lodash'
 
-const repositoryLoading = () => ({
-  type: 'REPOSITORY_LOADING',
-})
 
 const repositoryLoaded = (files, branches) => ({
   type: 'REPOSITORY_LOADED',
@@ -32,10 +29,9 @@ const setFileAsCurrent = (file) => ({
   file,
 })
 
-export const fetchRepo = ({ username, repo, splat }) => (dispatch) => {
-  dispatch(repositoryLoading(true))
+export const fetchRepo = ({ username, repo, branch }) => (dispatch) => {
   return all([
-    GithubRepoAPI.fetchRepoDir(username, repo, splat),
+    GithubRepoAPI.fetchRepoDir(username, repo, branch),
     GithubRepoAPI.fetchRepoBranches(username, repo),
   ])
   .then(spread((files, branches) => {
