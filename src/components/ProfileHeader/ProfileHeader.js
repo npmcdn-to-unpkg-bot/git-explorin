@@ -4,7 +4,6 @@ import { header, basic, name } from './styles.scss'
 function ProfileHeader (props) {
   return (
     <div className={header}>
-
       <div className={basic}>
         <p className={name}>{props.name || ''}</p>
         <p>{props.loading ? '' : `@${props.login}`}</p>
@@ -14,8 +13,8 @@ function ProfileHeader (props) {
 }
 
 ProfileHeader.propTypes = {
-  name: PropTypes.string.isRequired,
-  login: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  login: PropTypes.string,
   loading: PropTypes.bool.isRequired,
 }
 

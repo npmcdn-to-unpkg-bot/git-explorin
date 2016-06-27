@@ -2,9 +2,11 @@ const initialState = {
   usersLoading: false,
   profileLoading: true,
   users: [],
+  profile: {},
 }
 
 const Users = (state = initialState, action) => {
+  console.log(action)
   switch (action.type) {
     case 'USERS_LOADING':
       return {
@@ -25,6 +27,7 @@ const Users = (state = initialState, action) => {
     case 'PROFILE_LOADED':
       return {
         ...state,
+        profile: action.profile,
         profileLoading: false,
       }
     default:

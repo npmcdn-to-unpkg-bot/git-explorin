@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import hljs from 'highlight.js'
 import { container, markdownBody } from './styles.scss'
 
-class SourceFile extends Component {
+class GithubSourceFile extends Component {
   constructor () {
     super()
     this.state = {
@@ -91,9 +91,9 @@ class SourceFile extends Component {
   }
 }
 
-SourceFile.propTypes = {
+GithubSourceFile.propTypes = {
   extension: PropTypes.string.isRequired,
   source: PropTypes.string.isRequired,
 }
 
-export default SourceFile
+export default GithubSourceFile

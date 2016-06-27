@@ -9,28 +9,21 @@ class ProfileContainer extends Component {
     super()
     this.state = {
       loading: true,
-      profile: false,
     }
   }
 
   componentDidMount = () => {
     this.props.fetchUser(this.props.params.username)
-      .then((user) => {
-        this.setState({
-          profile: user,
-          loading: false,
-        })
-      })
   }
 
   render () {
     return (
       <div>
         <ProfileHeader
-          loading={this.state.loading}
-          name={this.state.profile.name}
-          login={this.state.profile.login}
-          avatar={this.state.profile.avatar_url} />
+          loading={this.props.loading}
+          name={this.props.profile.name}
+          login={this.props.profile.login}
+          avatar={this.props.profile.avatar_url} />
       </div>
     )
   }
@@ -38,10 +31,15 @@ class ProfileContainer extends Component {
 
 ProfileContainer.propTypes = {
   params: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
+  profile: PropTypes.object.isRequired,
   fetchUser: PropTypes.func.isRequired,
 }
 
 export default connect(
-  (state) => ({}),
+  (state) => ({
+    profile: state.Users.profile,
+    loading: state.Users.profileLoading,
+  }),
   (dispatch) => (bindActionCreators(UserActionCreators, dispatch))
   )(ProfileContainer)

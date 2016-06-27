@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { SourceFile, ImageFile } from 'components'
+import { GithubSourceFile, GithubImageFile } from 'components'
 import { container, loading, loaded, loader, spin } from './styles.scss'
 
 const exts = ['png', 'jpeg', 'svg', 'gif', 'tif', 'ico']
@@ -14,13 +14,13 @@ const EditorFile = ({ fileLoading, size, current: { extension, source, path } })
         {
           exts.indexOf(extension) < 0
           ? (
-              <SourceFile
+              <GithubSourceFile
                 extension={extension}
                 source={source}
                 path={path} />
             )
           : (
-              <ImageFile
+              <GithubImageFile
                 extension={extension}
                 source={source}
                 path={path} />
