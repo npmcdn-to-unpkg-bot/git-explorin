@@ -26,7 +26,7 @@ class EditorContainer extends Component {
 
   componentDidMount = () => {
     window.addEventListener('resize', this.handleWindowResize)
-    this.handleFetchRepo(this.props.params)
+    this.handleFetchRepo(this.state.repository)
   }
 
   componentWillReceiveProps = (next, prev) => {
