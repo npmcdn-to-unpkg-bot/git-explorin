@@ -14,7 +14,7 @@ export default function routes () {
       <Router path='/' component={MainContainer}>
         <IndexRoute component={HomeContainer} />
         <Route path='/:username' component={ProfileContainer} />
-        <Route path='/:username/:repo/:branch' component={EditorContainer} />
+        <Route path='/:username/:repo(/:branch)' component={EditorContainer} />
         <Route path='/**' component={NotFound} />
       </Router>
     </Router>

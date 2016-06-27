@@ -6,7 +6,6 @@ const initialState = {
 }
 
 const Users = (state = initialState, action) => {
-  console.log(action)
   switch (action.type) {
     case 'USERS_LOADING':
       return {

@@ -29,7 +29,7 @@ const setFileAsCurrent = (file) => ({
   file,
 })
 
-export const fetchRepo = ({ username, repo, branch }) => (dispatch) => {
+export const fetchRepo = ({ username, repo, branch = 'master' }) => (dispatch) => {
   return all([
     GithubRepoAPI.fetchRepoDir(username, repo, branch),
     GithubRepoAPI.fetchRepoBranches(username, repo),
