@@ -25,7 +25,6 @@ class EditorContainer extends Component {
   }
 
   componentDidMount = () => {
-    window.addEventListener('resize', this.handleWindowResize)
     this.handleFetchRepo(this.state.repository)
   }
 
@@ -50,16 +49,6 @@ class EditorContainer extends Component {
 
   handleBranchChange = (branch) => {
     this.context.router.push(`/${this.props.params.username}/${this.props.params.repo}/${branch.value}`)
-  }
-
-  handleWindowResize = () => {
-    this.setState({
-      width: {
-        ...this.state.width,
-        primary: ((window.innerWidth / 100) * 30),
-        secondary: ((window.innerWidth / 100) * 70),
-      },
-    })
   }
 
   handleWindowPaneResize = (size) => {

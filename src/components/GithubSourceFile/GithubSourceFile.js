@@ -11,7 +11,7 @@ class GithubSourceFile extends Component {
       currentPath: '',
       changed: false,
       source: '',
-      ext: 'accesslog',
+      ext: 'adoc',
     }
   }
 

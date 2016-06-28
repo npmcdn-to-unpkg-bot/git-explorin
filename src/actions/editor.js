@@ -34,9 +34,7 @@ export const fetchRepo = ({ username, repo, branch = 'master' }) => (dispatch) =
     GithubRepoAPI.fetchRepoDir(username, repo, branch),
     GithubRepoAPI.fetchRepoBranches(username, repo),
   ])
-  .then(spread((files, branches) => {
-    dispatch(repositoryLoaded(files, branches))
-  }))
+  .then(spread((files, branches) => dispatch(repositoryLoaded(files, branches))))
   .catch((err) => err)
 }
 
