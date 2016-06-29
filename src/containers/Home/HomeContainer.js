@@ -4,22 +4,9 @@ import { Link } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { UserActionCreators } from 'actions'
-import { container, loading, loaded, header, title, main, footer } from './styles.scss'
+import { container, header, title, main, footer } from './styles.scss'
 
 class HomeContainer extends Component {
-
-  constructor () {
-    super()
-    this.state = {
-      loaded: false
-    }
-  }
-
-  componentDidMount = () => {
-    setTimeout(() => this.setState({
-      loaded: true
-    }), 500)
-  }
 
   handleQuery = (query) => {
     this.props.searchUsers(query)
@@ -27,7 +14,7 @@ class HomeContainer extends Component {
 
   render () {
     return (
-      <div className={`${container} ${this.state.loaded ? loaded : loading }`}>
+      <div className={container}>
         <div className={header}>
           <Link to='/' className={title}><i className={'icon-github'}></i>{'GitExplorin\''}</Link>
           <GithubSearch handleQuery={this.handleQuery} query={this.props.location.query.q} />

@@ -24,7 +24,7 @@ const HTMLWebpackPluginSecondary = new HtmlWebpackPlugin({
   inject: 'body'
 })
 const UglifyJsPlugin = new webpack.optimize.UglifyJsPlugin({
-  compress: {
+  compressor: {
     warnings:false
   }
 })
@@ -73,7 +73,7 @@ const developmentConfig = {
 }
 
 const productionConfig = {
-  devtool: 'cheap-module-source-map',
+  devtool: 'source-map',
   plugins: [HTMLWebpackPluginConfig, HTMLWebpackPluginSecondary, UglifyJsPlugin, productionPlugin]
 }
 
