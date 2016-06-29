@@ -1,6 +1,15 @@
 .container {
+  transition:opacity 0.25s ease-out;
   height: calc(100vh);
   background-color: #fff;
+}
+
+.loading {
+  opacity: 0;
+}
+
+.loaded {
+  opacity: 1;
 }
 
 .header {
