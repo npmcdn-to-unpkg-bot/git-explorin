@@ -11,9 +11,6 @@
     border-bottom:5px solid rgba(95, 179, 179, 0.75);
     background-color: #34343C;
     cursor: pointer;
-    transition-property:background-color, color;
-    transition-duration: 0.35s;
-    transition-timing-function:linear;
     & i {
       opacity: 0;
       font-size: 0.75em !important;
@@ -50,9 +47,6 @@
   background-color: #fafafa;
   border-bottom:5px solid rgba(95, 179, 179, 1);
   color:#333;
-  transition-property:background-color, color;
-  transition-duration: 0.35s;
-  transition-timing-function:linear;
 }
 
 .tab, .active {

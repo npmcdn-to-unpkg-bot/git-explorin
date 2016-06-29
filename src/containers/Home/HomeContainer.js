@@ -16,7 +16,7 @@ class HomeContainer extends Component {
     return (
       <div className={container}>
         <div className={header}>
-          <Link to='/' className={title}>{'GitExplorin\''}</Link>
+          <Link to='/' className={title}><i className={'icon-github'}></i>{'GitExplorin\''}</Link>
           <GithubSearch handleQuery={this.handleQuery} query={this.props.location.query.q} />
         </div>
         <div className={main}>

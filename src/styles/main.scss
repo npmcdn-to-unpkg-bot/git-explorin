@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Lato:400);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,700|Source+Code+Pro);
 @import url(../assets/fonts/icomoon/style.scss);
 
 html {
@@ -7,18 +7,18 @@ html {
 
 body {
   margin: 0 auto;
-  // min-width: 760px;
   max-height: 100vh;
-  font-family: 'Lato';
+  font-family: 'Ubuntu', sans-serif;
   font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  box-sizing:border-box;
+
 }
 
 
 * {
-  -webkit-font-smoothing: antialiased;
-  box-sizing:border-box;
   &:before, &:after {
-    font-family: 'icomoon'
+    font-family: 'icomoon';
   }
 }
 

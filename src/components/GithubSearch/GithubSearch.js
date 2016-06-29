@@ -60,7 +60,7 @@ class GithubSearch extends Component {
           className={search}
           value={this.state.query}
           onChange={this.handleInputChange}
-          placeholder='search github users and orgs' />
+          placeholder='Search Github Users & Organizations' />
       </div>
     )
   }

@@ -1,26 +1,29 @@
 .hero {
-  padding:7em 0;
+  padding:5em 0 3em 0;
 }
 
 .heroTitle {
   font-size:2em;
   font-weight: 300;
   text-align: center;
+  padding:0 2em;
   color:#5fb3b3;
 }
 
 .section {
   display: flex;
-  justify-content:center;
-  padding:2em 0 5em 0;
-  background-color: #fbfbfb;
+  justify-content: center;
+  padding:3em 1em;
 }
 .img {
-  width:70vw;
-  opacity: 0.7;
-  box-shadow: 0 5px 30px -10px #171717;
-  min-width:400px;
-  border-radius: 4px;
-  border: 1px solid #dfdfdf;
-  border-bottom: none;
+  width: 80vw;
+  height: 42.5vw;
+  border-radius: 5px;
+  box-shadow: 0 3px 25px -5px #171717;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-image: url('../../assets/images/editor_screenshot.png')
 }
+

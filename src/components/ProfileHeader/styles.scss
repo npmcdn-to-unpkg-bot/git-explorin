@@ -4,7 +4,7 @@
   align-items:center;
   padding:1em 0;
   height: 180px;
-  background-image: url(../../assets/images/gplaypattern/gplaypattern.png);
+  background-color: #34343c;
 }
 
 .basic {
@@ -12,7 +12,6 @@
   & > p {
     text-align: center;
     font-size:1.2em;
-    font-weight:bold;
     color:#666;
     &.name {
       font-size:1.5em;

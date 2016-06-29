@@ -11,20 +11,37 @@
 }
 
 .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   z-index: 1000;
-  top: -0px;
-  left:-42px;
-  padding:1.5em 0.75em;
-  transition:transform 0.25s linear 0.25s;
+  height: 65px;
+  width:40px;
+  top: 0px;
+  left:-40px;
   cursor: pointer;
+  color:#777788;
+  &:hover {
+    color:#f2f2f2;
+  }
   &::before {
-    color: #777788;
+    transition:transform 0.25s linear 0.25s;
+    background-color:#34343C;
+    border-radius: 100%;
+    padding:0.1em;
+    color: inherit;
     content: '\ea42';
+    display: block;
   }
   &.active {
-    transform:rotateZ(180deg);
-    left:-60px !important;
+    left:-52px !important;
+      &:hover {
+        color:#fff;
+      }
+     &::before {
+      transform:rotateZ(180deg);
+    }
   }
   
 }

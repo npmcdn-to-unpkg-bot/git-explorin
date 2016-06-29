@@ -11,7 +11,6 @@
   }
 
 :global(.Dropdown-placeholder) {
-  font-weight: bold;
   color:#5fb3b3;
   opacity: 0.85;
   transition:opacity 0.05s linear;
@@ -40,12 +39,11 @@
   & > :global(.Dropdown-option) {
     color:#858593;
     padding:0.25em 1em;
-    font-weight: bold;
     white-space: nowrap;
     cursor: pointer;
     &:global(.is-selected) {
       color:#5fb3b3;
-      text-decoration: underline;
+      font-weight: bold;
     }
     &:hover {
       color:#5fb3b3;
